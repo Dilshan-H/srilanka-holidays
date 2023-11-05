@@ -11,6 +11,7 @@ Holidays are updated every year and currently contains holidays starting from 20
 - Open-source and free to use
 - Updated every year
 - Available as both API and downloadable files
+- Holiday categorizations (Public, Bank, Mercantile, Poya, etc.)
 
 ## API
 
@@ -24,7 +25,8 @@ From here you can download the list of holidays in several file formats and inte
 
 ## Data Sources
 
---- Data sources goes here ---
+- State Ministry of Home Affairs, Sri Lanka - https://moha.gov.lk/
+- Department of Government Printing, Sri Lanka - http://www.documents.gov.lk/
 
 ## Contributing
 
