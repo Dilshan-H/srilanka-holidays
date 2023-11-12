@@ -1,4 +1,4 @@
-# SriLanka Holidays
+# Sri Lanka Holidays
 
 ## Description
 
@@ -21,7 +21,27 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 From here you can download the list of holidays in several file formats and integrate with your applications directly without using the API.
 
---- Table goes here ---
+### iCalendar (ics) Format
+
+|    Year     | Download Link                                                                              |
+| :---------: | ------------------------------------------------------------------------------------------ |
+|    2021     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2021.ics                      |
+|    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics                      |
+|    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics                      |
+|    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics                      |
+| 2021 - 2024 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-24/2021-2024.ics |
+
+### JSON Format
+
+--- JSON download links goes here ---
+
+### CSV Format
+
+--- CSV download links goes here ---
+
+### XML Format
+
+--- XML download links goes here ---
 
 ## Data Sources
 
