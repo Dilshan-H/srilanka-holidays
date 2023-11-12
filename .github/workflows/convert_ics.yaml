@@ -35,6 +35,10 @@ jobs:
               git config --global user.name "GitHub Actions"
               csv_branch_name="csv-files-$year"
               git checkout -b "$csv_branch_name"
+              # Debug
+              pwd
+              ls
+              ls -R
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
               git push origin "$csv_branch_name"
