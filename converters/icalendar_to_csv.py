@@ -39,7 +39,7 @@ def ics_to_csv(file_path):
                     {
                         "UID": component.get("uid"),
                         "Summary": component.get("summary"),
-                        "Description": component.get("description"),
+                        "Catagories": component.get("description"),
                         "Start": component.decoded("dtstart"),
                         "End": component.decoded("dtend"),
                     }
