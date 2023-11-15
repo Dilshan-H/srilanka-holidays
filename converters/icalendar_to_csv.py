@@ -14,6 +14,7 @@ def ics_to_csv(file_path):
         cal = Calendar.from_ical(file.read())
 
     csv_dir = os.path.abspath(os.path.join(os.curdir, os.pardir, CSV_DIR_NAME))
+    print(f"CSV files will be saved in {csv_dir}")
     os.makedirs(csv_dir, exist_ok=True)
 
     # Get the filename (without extension) from the input path
@@ -21,6 +22,7 @@ def ics_to_csv(file_path):
 
     # Create the CSV file path
     csv_file_path = os.path.join(csv_dir, f"{file_name}.csv")
+    print(f"Saving CSV file to {csv_file_path}")
 
     with open(csv_file_path, "w", newline="", encoding="utf-8") as file:
         fieldnames = [
