@@ -25,6 +25,8 @@ jobs:
 
       - name: Check and Convert
         run: |
+          # Set up the GitHub token
+          GITHUB_TOKEN="${{ secrets.GITHUB_TOKEN }}"
           for file in ics/*.ics; do
             year=$(basename "$file" .ics)
             
