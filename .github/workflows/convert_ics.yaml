@@ -30,8 +30,8 @@ jobs:
             
             # CSV Conversion
             if [ ! -f "csv/$year.csv" ]; then
-              git config --global user.email "github-actions@github.com"
-              git config --global user.name "GitHub Actions"
+              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
+              git config --global user.name "dilshan-h"
               csv_branch_name="csv-files-$year"
               git checkout -b "$csv_branch_name"
               python converters/icalendar_to_csv.py "$file"
@@ -45,8 +45,8 @@ jobs:
             
             # XML Conversion
             if [ ! -f "xml/$year.xml" ]; then
-              git config --global user.email "github-actions@github.com"
-              git config --global user.name "GitHub Actions"
+              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
+              git config --global user.name "dilshan-h"
               xml_branch_name="xml-files-$year"
               git checkout -b "$xml_branch_name"
               python converters/icalendar_to_xml.py "$file"
@@ -60,8 +60,8 @@ jobs:
             
             # JSON Conversion
             if [ ! -f "json/$year.json" ]; then
-              git config --global user.email "github-actions@github.com"
-              git config --global user.name "GitHub Actions"
+              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
+              git config --global user.name "dilshan-h"
               json_branch_name="json-files-$year"
               git checkout -b "$json_branch_name"
               python converters/icalendar_to_json.py "$file"
