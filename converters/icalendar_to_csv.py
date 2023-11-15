@@ -13,6 +13,10 @@ def ics_to_csv(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         cal = Calendar.from_ical(file.read())
 
+    print(os.curdir)
+    print(os.pardir)
+    print(os.path.abspath(os.path.join(os.curdir, os.pardir)))
+
     csv_dir = os.path.abspath(os.path.join(os.curdir, os.pardir, CSV_DIR_NAME))
     os.makedirs(csv_dir, exist_ok=True)
     print(f"Created directory: {csv_dir}")
