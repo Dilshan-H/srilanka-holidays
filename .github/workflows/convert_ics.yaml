@@ -30,15 +30,11 @@ jobs:
             
             # CSV Conversion
             if [ ! -f "csv/$year.csv" ]; then
-              python converters/icalendar_to_csv.py "$file"
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               csv_branch_name="csv-files-$year"
               git checkout -b "$csv_branch_name"
-              # Debug
-              pwd
-              ls
-              ls -R
+              python converters/icalendar_to_csv.py "$file"
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
               git push origin "$csv_branch_name"
@@ -49,11 +45,11 @@ jobs:
             
             # XML Conversion
             if [ ! -f "xml/$year.xml" ]; then
-              python converters/icalendar_to_xml.py "$file"
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               xml_branch_name="xml-files-$year"
               git checkout -b "$xml_branch_name"
+              python converters/icalendar_to_xml.py "$file"
               git add "xml/$year.xml"
               git commit -m "Convert $year.ics to $year.xml [skip ci]"
               git push origin "$xml_branch_name"
@@ -64,11 +60,11 @@ jobs:
             
             # JSON Conversion
             if [ ! -f "json/$year.json" ]; then
-              python converters/icalendar_to_json.py "$file"
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               json_branch_name="json-files-$year"
               git checkout -b "$json_branch_name"
+              python converters/icalendar_to_json.py "$file"
               git add "json/$year.json"
               git commit -m "Convert $year.ics to $year.json [skip ci]"
               git push origin "$json_branch_name"
