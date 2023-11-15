@@ -34,10 +34,10 @@ jobs:
               git config --global user.name "GitHub Actions"
               csv_branch_name="csv-files-$year"
               git checkout -b "$csv_branch_name"
-              tree
+              tree ..
               python converters/icalendar_to_csv.py "$file"
               echo
-              tree
+              tree ..
               git status
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
