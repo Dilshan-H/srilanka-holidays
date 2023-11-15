@@ -17,7 +17,9 @@ def ics_to_csv(file_path):
     print(os.pardir)
     print(os.path.abspath(os.path.join(os.curdir, os.pardir)))
 
-    csv_dir = os.path.abspath(os.path.join(os.curdir, os.pardir, CSV_DIR_NAME))
+    csv_dir = os.path.abspath(
+        os.path.join(os.curdir, os.pardir, "srilanka-holidays", CSV_DIR_NAME)
+    )
     os.makedirs(csv_dir, exist_ok=True)
     print(f"Created directory: {csv_dir}")
 
