@@ -35,6 +35,7 @@ jobs:
               csv_branch_name="csv-files-$year"
               git checkout -b "$csv_branch_name"
               python converters/icalendar_to_csv.py "$file"
+              git status
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
               git push origin "$csv_branch_name"
