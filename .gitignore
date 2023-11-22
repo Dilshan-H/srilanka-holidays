@@ -167,3 +167,6 @@ to-do.txt
 
 # Releases
 releases/
+csv/
+xml/
+json/
