@@ -2,6 +2,8 @@ name: Convert ICS & Create PRs
 
 on:
   push:
+    branches:
+      - main
     paths:
       - "ics/**" # Trigger workflow when changes are pushed to 'ics' directory
 
