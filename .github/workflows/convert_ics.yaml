@@ -1,4 +1,4 @@
-name: Convert ICS to Multiple Formats and Create PRs
+name: Convert ICS & Create PRs
 
 on:
   push:
