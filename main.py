@@ -58,6 +58,8 @@ async def check_holiday(
     date_provided, status_code, result = await get_holiday_info(year, month, day)
     if response:
         response.status_code = status_code
+    if status_code != status.HTTP_200_OK:
+        return {"response": result}
     if result["is_holiday"]:
         return {"date": date_provided, "response": True}
     return {"date": date_provided, "response": False}
