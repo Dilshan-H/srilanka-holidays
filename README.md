@@ -1,4 +1,4 @@
-# Sri Lanka Holidays
+# Sri Lanka Holidays - API & Data
 
 ![GitHub license](https://img.shields.io/github/license/Dilshan-H/srilanka-holidays?style=for-the-badge)
 ![GitHub last commit](https://img.shields.io/github/last-commit/Dilshan-H/srilanka-holidays?style=for-the-badge)
