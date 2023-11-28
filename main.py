@@ -1,4 +1,26 @@
-# pylint: disable=missing-docstring import-error
+"""
+Sri Lanka Holidays API
+
+Main module for the API - V0.1.10
+Author: Dilshan-H (https://github.com/Dilshan-H)
+License: MIT License
+URL: https://github.com/Dilshan-H/srilanka-holidays
+
+API endpoints.
+    - / (home page)
+    - /api/v1/status (status of the API)
+    - /api/v1/version (version of the API)
+    - /api/v1/coverage/{year} (data coverage for a given year)
+    - /api/v1/check_holiday (check whether a given date is a holiday or not)
+    - /api/v1/holiday_info (information about a given holiday)
+    - /api/v1/holidays (list of holidays for a given year/month)
+
+Docs:
+    - /docs (Swagger UI)
+    - /redoc (ReDoc)
+"""
+
+# pylint: disable=import-error
 from typing import Annotated
 import os
 from datetime import datetime, date
@@ -13,7 +35,7 @@ app = FastAPI()
 async def root():
     """Return home page"""
     # TODO: deliver home page
-    return {"message": "Hello World"}
+    return {"response": "Under construction"}
 
 
 @app.get("/api/v1/status")
@@ -25,7 +47,7 @@ async def api_status():
 @app.get("/api/v1/version")
 async def api_version():
     """Return version of the API"""
-    return {"version": "1.0.0"}  # TODO: change version
+    return {"version": "0.1.10"}
 
 
 @app.get("/api/v1/coverage/{year}")
@@ -79,7 +101,14 @@ async def holiday_info(
     return {"date": date_provided, "response": result}
 
 
+@app.get("/api/v1/holidays")
+async def holidays_list():
+    """Return list of holidays for a given year/month"""
+    return {"response": "Under construction"}
+
+
 async def get_holiday_info(year: int, month: int, day: int):
+    """Process provided date and return holiday information with status code"""
     try:
         date_to_check = date(year, month, day)
     except (ValueError, TypeError):
@@ -124,20 +153,3 @@ async def get_holiday_info(year: int, month: int, day: int):
             "is_holiday": False,
         },
     )
-
-
-@app.get("/api/v1/holidays")
-async def holidays_list(item_id: int):
-    """Return list of holidays for a given year/month"""
-    return {"item_id": item_id}
-
-
-# TEMP ROUTES
-@app.get("/items/{item_id}")
-async def read_item(item_id: int):
-    return {"item_id": item_id}
-
-
-@app.put("/items/{item_id}")
-def update_item(item_id: int, item: int):
-    return {"item_name": item.name, "item_id": item_id}
