@@ -36,12 +36,16 @@ jobs:
             year=$(basename "$file" .ics)
             branch_name="src-files-$year"
 
+            # git config
+            git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
+            git config --global user.name "dilshan-h"
+
+            # Checkout branch
+            git checkout main
             git checkout -b "$branch_name"
             
             # CSV Conversion
             if [ ! -f "csv/$year.csv" ]; then
-              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
-              git config --global user.name "dilshan-h"
               python converters/icalendar_to_csv.py "$file"
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
@@ -52,8 +56,6 @@ jobs:
             
             # XML Conversion
             if [ ! -f "xml/$year.xml" ]; then
-              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
-              git config --global user.name "dilshan-h"
               python converters/icalendar_to_xml.py "$file"
               git add "xml/$year.xml"
               git commit -m "Convert $year.ics to $year.xml [skip ci]"
@@ -64,8 +66,6 @@ jobs:
             
             # JSON Conversion
             if [ ! -f "json/$year.json" ]; then
-              git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
-              git config --global user.name "dilshan-h"
               python converters/icalendar_to_json.py "$file"
               git add "json/$year.json"
               git commit -m "Convert $year.ics to $year.json [skip ci]"
@@ -75,6 +75,6 @@ jobs:
             fi
 
             # Create PR
-            gh pr create --title "Add source file for year $year" --body "[Automated PR] This PR contains the changes after converting $year.ics to CSV, XML & JSON formats" --base main --head "$branch_name"
+            gh pr create --title "Add source files for year $year" --body "[Automated PR] This PR contains the changes after converting $year.ics to CSV, XML & JSON formats" --base main --head "$branch_name"
 
           done
