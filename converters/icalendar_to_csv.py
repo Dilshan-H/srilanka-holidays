@@ -1,4 +1,12 @@
-# pylint: disable=missing-docstring import-error
+"""
+This module provides a function to convert an iCalendar file to CSV format.
+
+Author: Dilshan-H (https://github.com/Dilshan-H)
+License: MIT License
+URL: https://github.com/Dilshan-H/srilanka-holidays
+"""
+
+# pylint: disable=import-error
 
 import csv
 import os
@@ -9,7 +17,15 @@ CSV_DIR_NAME = "csv"
 
 
 def ics_to_csv(file_path):
-    """Convert the provided iCalendar file to CSV format"""
+    """
+    Convert the provided iCalendar file to CSV format.
+
+    Args:
+        file_path (str): The path to the iCalendar file.
+
+    Returns:
+        None
+    """
     with open(file_path, "r", encoding="utf-8") as file:
         cal = Calendar.from_ical(file.read())
 

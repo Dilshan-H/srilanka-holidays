@@ -1,4 +1,12 @@
-# pylint: disable=missing-docstring import-error
+"""
+This module provides a function to convert an iCalendar file to JSON format.
+
+Author: Dilshan-H (https://github.com/Dilshan-H)
+License: MIT License
+URL: https://github.com/Dilshan-H/srilanka-holidays
+"""
+
+# pylint: disable=import-error
 
 import os
 import sys
@@ -9,7 +17,15 @@ JSON_DIR_NAME = "json"
 
 
 def ics_to_json(file_path):
-    """Convert the prepared iCalendar file to JSON format"""
+    """
+    Convert the prepared iCalendar file to JSON format.
+
+    Args:
+        file_path (str): The path to the iCalendar file.
+
+    Returns:
+        None
+    """
     with open(file_path, "r", encoding="utf-8") as file:
         cal = Calendar.from_ical(file.read())
 

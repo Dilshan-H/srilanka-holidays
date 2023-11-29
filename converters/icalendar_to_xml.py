@@ -1,4 +1,12 @@
-# pylint: disable=missing-docstring import-error
+"""
+This module provides a function to convert an iCalendar file to XML format.
+
+Author: Dilshan-H (https://github.com/Dilshan-H)
+License: MIT License
+URL: https://github.com/Dilshan-H/srilanka-holidays
+"""
+
+# pylint: disable=import-error
 
 import os
 import sys
@@ -9,7 +17,15 @@ XML_DIR_NAME = "xml"
 
 
 def ics_to_xml(file_path):
-    """Convert the prepared iCalendar file to XML format"""
+    """
+    Convert the prepared iCalendar file to XML format.
+
+    Args:
+        file_path (str): The path to the iCalendar file.
+
+    Returns:
+        None
+    """
     with open(file_path, "r", encoding="utf-8") as file:
         cal = Calendar.from_ical(file.read())
 
