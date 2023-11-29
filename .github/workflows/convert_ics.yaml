@@ -34,18 +34,18 @@ jobs:
         run: |
           for file in ics/*.ics; do
             year=$(basename "$file" .ics)
+            branch_name="src-files-$year"
+
+            git checkout -b "$branch_name"
             
             # CSV Conversion
             if [ ! -f "csv/$year.csv" ]; then
               git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
               git config --global user.name "dilshan-h"
-              csv_branch_name="csv-files-$year"
-              git checkout -b "$csv_branch_name"
               python converters/icalendar_to_csv.py "$file"
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
-              git push -u origin "$csv_branch_name"
-              gh pr create --title "Convert $year.ics to $year.csv" --body "[Automated PR] This PR contains the changes after converting $year.ics to $year.csv." --base main --head "$csv_branch_name"
+              git push -u origin "$branch_name"
             else
               echo "CSV file for $year.ics already exists. Skipping CSV conversion."
             fi
@@ -54,13 +54,10 @@ jobs:
             if [ ! -f "xml/$year.xml" ]; then
               git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
               git config --global user.name "dilshan-h"
-              xml_branch_name="xml-files-$year"
-              git checkout -b "$xml_branch_name"
               python converters/icalendar_to_xml.py "$file"
               git add "xml/$year.xml"
               git commit -m "Convert $year.ics to $year.xml [skip ci]"
-              git push origin "$xml_branch_name"
-              gh pr create --title "Convert $year.ics to $year.xml" --body "[Automated PR] This PR contains the changes after converting $year.ics to $year.xml." --base main --head "$xml_branch_name"
+              git push origin "$branch_name"
             else
               echo "XML file for $year.ics already exists. Skipping XML conversion."
             fi
@@ -69,14 +66,15 @@ jobs:
             if [ ! -f "json/$year.json" ]; then
               git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
               git config --global user.name "dilshan-h"
-              json_branch_name="json-files-$year"
-              git checkout -b "$json_branch_name"
               python converters/icalendar_to_json.py "$file"
               git add "json/$year.json"
               git commit -m "Convert $year.ics to $year.json [skip ci]"
-              git push origin "$json_branch_name"
-              gh pr create --title "Convert $year.ics to $year.json" --body "[Automated PR] This PR contains the changes after converting $year.ics to $year.json." --base main --head "$json_branch_name"
+              git push origin "$branch_name"
             else
               echo "JSON file for $year.ics already exists. Skipping JSON conversion."
             fi
+
+            # Create PR
+            gh pr create --title "Add source file for year $year" --body "[Automated PR] This PR contains the changes after converting $year.ics to CSV, XML & JSON formats" --base main --head "$branch_name"
+
           done
