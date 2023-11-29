@@ -40,12 +40,11 @@ jobs:
               git config --global user.email "77499497+Dilshan-H@users.noreply.github.com"
               git config --global user.name "dilshan-h"
               csv_branch_name="csv-files-$year"
-              git pull origin main
               git checkout -b "$csv_branch_name"
               python converters/icalendar_to_csv.py "$file"
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
-              git push origin "$csv_branch_name"
+              git push -u origin "$csv_branch_name"
               gh pr create --title "Convert $year.ics to $year.csv" --body "[Automated PR] This PR contains the changes after converting $year.ics to $year.csv." --base main --head "$csv_branch_name"
             else
               echo "CSV file for $year.ics already exists. Skipping CSV conversion."
