@@ -13,7 +13,9 @@ def ics_to_json(file_path):
     with open(file_path, "r", encoding="utf-8") as file:
         cal = Calendar.from_ical(file.read())
 
-    json_dir = os.path.abspath(os.path.join(os.curdir, os.pardir, JSON_DIR_NAME))
+    json_dir = os.path.abspath(
+        os.path.join(os.curdir, os.pardir, "srilanka-holidays", JSON_DIR_NAME)
+    )
     os.makedirs(json_dir, exist_ok=True)
 
     # Get the filename (without extension) from the input path

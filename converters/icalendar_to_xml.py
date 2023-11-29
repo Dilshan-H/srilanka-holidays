@@ -29,7 +29,9 @@ def ics_to_xml(file_path):
 
     tree = ET.ElementTree(root)
 
-    xml_dir = os.path.abspath(os.path.join(os.curdir, os.pardir, XML_DIR_NAME))
+    xml_dir = os.path.abspath(
+        os.path.join(os.curdir, os.pardir, "srilanka-holidays", XML_DIR_NAME)
+    )
     os.makedirs(xml_dir, exist_ok=True)
 
     # Get the filename (without extension) from the input path
