@@ -1,0 +1,44 @@
+# Add 'converters' to any changes within converter scripts
+converters:
+  - converters/*
+
+# Add 'ics' to any data upgrades or changes within ICS files
+ics:
+  - ics/*
+
+# Add 'csv' to any data upgrades or changes within CSV files
+ics:
+  - csv/*
+
+# Add 'xml' to any data upgrades or changes within XML files
+xml:
+  - xml/*
+
+# Add 'json' to any data upgrades or changes within JSON files
+json:
+  - json/*
+
+# Add 'source data' to all changes in csv, ics, xml, and json directories
+source data:
+  - any:
+      [
+        "ics/*",
+        "csv/*",
+        "xml/*",
+        "json/*",
+      ]
+
+# Add 'api' to any changes within api
+api:
+  - "main.py"
+
+# Add 'docs' to new documentation & related files
+docs:
+  - any:
+      [
+        "docs/*",
+        "README.md",
+        "LICENSE",
+        "CONTRIBUTING.md",
+        "CODE_OF_CONDUCT.md",
+      ]
