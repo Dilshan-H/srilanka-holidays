@@ -6,6 +6,7 @@ on:
       - main
     paths:
       - "ics/**" # Trigger workflow when changes are pushed to 'ics' directory
+  workflow_dispatch:
 
 jobs:
   convert-and-create-pr:
