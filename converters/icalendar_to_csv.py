@@ -44,7 +44,7 @@ def ics_to_csv(file_path):
         fieldnames = [
             "UID",
             "Summary",
-            "Catagories",
+            "Categories",
             "Start",
             "End",
         ]
@@ -57,7 +57,7 @@ def ics_to_csv(file_path):
                     {
                         "UID": component.get("uid"),
                         "Summary": component.get("summary"),
-                        "Catagories": component.get("description"),
+                        "Categories": component.get("description"),
                         "Start": component.decoded("dtstart"),
                         "End": component.decoded("dtend"),
                     }
