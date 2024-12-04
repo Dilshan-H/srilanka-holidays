@@ -7,7 +7,7 @@ ics:
   - ics/*
 
 # Add 'csv' to any data upgrades or changes within CSV files
-ics:
+csv:
   - csv/*
 
 # Add 'xml' to any data upgrades or changes within XML files
