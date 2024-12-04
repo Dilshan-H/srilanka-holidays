@@ -43,6 +43,9 @@ jobs:
             # Checkout branch
             git checkout main
             git checkout -b "$branch_name"
+
+            # Track if changes are made
+            changes_made=false
             
             # CSV Conversion
             if [ ! -f "csv/$year.csv" ]; then
@@ -50,6 +53,7 @@ jobs:
               git add "csv/$year.csv"
               git commit -m "Convert $year.ics to $year.csv [skip ci]"
               git push -u origin "$branch_name"
+              changes_made=true
             else
               echo "CSV file for $year.ics already exists. Skipping CSV conversion."
             fi
@@ -60,6 +64,7 @@ jobs:
               git add "xml/$year.xml"
               git commit -m "Convert $year.ics to $year.xml [skip ci]"
               git push origin "$branch_name"
+              changes_made=true
             else
               echo "XML file for $year.ics already exists. Skipping XML conversion."
             fi
@@ -70,11 +75,16 @@ jobs:
               git add "json/$year.json"
               git commit -m "Convert $year.ics to $year.json [skip ci]"
               git push origin "$branch_name"
+              changes_made=true
             else
               echo "JSON file for $year.ics already exists. Skipping JSON conversion."
             fi
 
-            # Create PR
-            gh pr create --title "Add source files for year $year" --body "[Automated PR] This PR contains the changes after converting $year.ics to CSV, XML & JSON formats" --base main --head "$branch_name"
-
+            # Only create PR if changes were made
+            if [ "$changes_made" = true ]; then
+              gh pr create --title "Add source files for year $year" --body "[Automated PR] This PR contains the changes after converting $year.ics to CSV, XML & JSON formats" --base main --head "$branch_name"
+            else
+              echo "No changes detected for $year. Skipping PR creation."
+            fi
+            
           done
