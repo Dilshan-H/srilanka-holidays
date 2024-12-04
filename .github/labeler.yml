@@ -7,7 +7,7 @@ ics:
   - ics/*
 
 # Add 'csv' to any data upgrades or changes within CSV files
-ics:
+csv:
   - csv/*
 
 # Add 'xml' to any data upgrades or changes within XML files
@@ -20,25 +20,19 @@ json:
 
 # Add 'source data' to all changes in csv, ics, xml, and json directories
 source data:
-  - any:
-      [
-        "ics/*",
-        "csv/*",
-        "xml/*",
-        "json/*",
-      ]
+  - ics/*
+  - csv/*
+  - xml/*
+  - json/*
 
 # Add 'api' to any changes within api
 api:
-  - "main.py"
+  - main.py
 
 # Add 'docs' to new documentation & related files
 docs:
-  - any:
-      [
-        "docs/*",
-        "README.md",
-        "LICENSE",
-        "CONTRIBUTING.md",
-        "CODE_OF_CONDUCT.md",
-      ]
+  - docs/*
+  - README.md
+  - LICENSE
+  - CONTRIBUTING.md
+  - CODE_OF_CONDUCT.md

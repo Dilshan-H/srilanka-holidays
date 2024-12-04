@@ -48,7 +48,8 @@ From here you can download the list of holidays in several file formats and inte
 |    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics                      |
 |    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics                      |
 |    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics                      |
-| 2021 - 2024 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-24/2021-2024.ics |
+|    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics                      |
+| 2021 - 2025 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-25/2021-2025.ics |
 
 ### Other Formats
 

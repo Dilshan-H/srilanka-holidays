@@ -46,7 +46,7 @@ def ics_to_json(file_path):
             event = {
                 "uid": component.get("uid"),
                 "summary": component.get("summary"),
-                "catagories": component.get("description").split(","),
+                "categories": component.get("description").split(","),
                 "start": component.decoded("dtstart").isoformat(),
                 "end": component.decoded("dtend").isoformat(),
             }

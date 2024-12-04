@@ -36,7 +36,7 @@ def ics_to_xml(file_path):
             event = ET.SubElement(root, "Event")
             summary = ET.SubElement(event, "Summary")
             summary.text = str(component.get("summary"))
-            description = ET.SubElement(event, "Catagories")
+            description = ET.SubElement(event, "Categories")
             description.text = str(component.get("description"))
             start = ET.SubElement(event, "Start")
             start.text = str(component.decoded("dtstart"))
