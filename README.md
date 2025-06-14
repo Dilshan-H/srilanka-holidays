@@ -13,6 +13,13 @@
 ## Description
 
 An open-source API to get Sri Lankan holidays and a list of Sri Lankan holidays in several file formats for easy integration with your applications.
+
+![API](https://img.shields.io/badge/api-red)
+![csv](https://img.shields.io/badge/csv-blue)
+![ics](https://img.shields.io/badge/ics-blue)
+![json](https://img.shields.io/badge/json-blue)
+![xml](https://img.shields.io/badge/xml-blue)
+
 Holidays are updated every year and currently contains holidays starting from 2021.
 
 ## Powered Projects
@@ -31,10 +38,117 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 ## API
 
-API is under development and will be available soon for public use.  
-If you want to use/try the current unstable version of the API, feel free to do so by forking the repository and running the API locally. API is built using [FastAPI](https://fastapi.tiangolo.com/) and dependencies can be installed using `pip install -r requirements.txt` within a virtual environment.
+The API is live at https://srilanka-holidays.vercel.app and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
-API Docs & testing features will be available at `http://localhost:8000/docs` and `http://localhost:8000/redoc` after running the API.
+### API Features
+
+- **Holiday Lists**: Retrieve holidays for any year or filter by month and type (e.g., public, religious).
+- **Date Checker**: Check if a specific date is a holiday with detailed info (e.g., holiday name, type).
+- **API Key Authentication**: Secure access using `X-API-Key` header.
+- **Redis Caching**: Lightning-fast responses with cached data.
+- **Interactive Docs**: Explore endpoints at `/docs` or `/redoc`.
+- **Self-Host**: Deploy on your favorite platform
+
+### Using the Public API
+
+1. **Obtain an API Key**:
+
+   - Contact us to request a key (registration endpoint coming soon).
+   - Include your key in every request: `X-API-Key: your-key`.
+
+2. **Explore Endpoints**:
+
+   - **List Holidays**: `GET /api/v1/holidays?year=2025` (optional: `month`, `type`, `format=simple|full`)
+
+     Example:
+
+     ```curl
+     curl -H "X-API-Key: your-key" https://srilanka-holidays.vercel.app/api/v1/holidays?year=2025
+     ```
+
+   - **Check Date**: `GET /api/v1/check_holiday?year=2025&month=5&day=1`
+
+     Example:
+
+     ```curl
+     `curl -H "X-API-Key: your-key" srilanka-holidays.vercel.app/api/v1/check_holiday?year=2025&month=5&day=1
+     ```
+
+3. **Read the Docs**:
+
+   - Visit `https://srilanka-holidays.vercel.app/docs` for interactive Swagger UI or `https://srilanka-holidays.vercel.app/redoc` for ReDoc.
+
+4. **Homepage**:
+   - Check out `https://srilanka-holidays.vercel.app` for an overview and quick start guide.
+
+### Running & Testing API Locally
+
+<details>
+<summary>Click here to read more..</summary>
+
+To test or contribute to the API, run it locally:
+
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/your-username/sri-lanka-holidays-api.git
+   cd sri-lanka-holidays-api
+   ```
+
+2. **Set Up a Virtual Environment**:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows:venv\Scripts\activate
+   ```
+
+3. **Install Dependencies**:
+
+   ```bash
+   pip install -r requirements-api.txt
+   ```
+
+4. **Setup REDIS database**:
+
+   Visit [Redis Cloud](https://cloud.redis.io) and login to your account. Then make a new database and make a note of your db's REDIS CONNECT URL.
+
+   OR
+
+   If you're using [Vercel](https://vercel.com/), check `Storage` dashboard to connect Redis directly.
+
+5. **Configure Environment Variables**:
+
+   Create a .env file with your variables.
+   (Please note that API_KEYS mention here will contain FALLBACK API KEYS just in case if REDIS fails)
+
+   ```env
+   REDIS_URL=redis://default:your-password@your-redis-host:port
+   API_KEYS=test-key-123,prod-key-456
+   ```
+
+6. Store API KEYS in REDIS
+   Use `Redis Insight` to quickly store data as JSON.
+
+   ```json
+   {
+     "api_keys": [
+       {
+         "key": "API_KEY",
+         "created": 1749841807,
+         "username": "USERNAME",
+         "description": "DESCRIPTION"
+       }
+     ]
+   }
+   ```
+
+7. Start app with:
+
+   ```bash
+   fastapi dev main.py
+   ```
+
+</details>
 
 ## Direct Downloadable Files
 
@@ -79,6 +193,8 @@ The following categories are used:
 - **Mercantile Holidays**
 
 ## Contributing
+
+<a href="https://www.buymeacoffee.com/dilshanh" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/default-orange.png" alt="Buy Me A Coffee" height="41" width="174"></a>
 
 Got an idea? Found a bug? Feel free to [open an issue](https://github.com/Dilshan-H/srilanka-holidays/issues/new) or submit a pull request.
 
