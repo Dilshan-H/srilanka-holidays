@@ -164,6 +164,7 @@ cython_debug/
 
 # TODO
 to-do.txt
+workflow.md
 
 # Releases
 releases/
