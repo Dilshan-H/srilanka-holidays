@@ -164,7 +164,7 @@ This section provides tentative holiday data files, which are available for earl
 
 - **Year 2026 Tentative Holiday Data**
 
-  https://github.com/Dilshan-H/srilanka-holidays/Tentative-Holiday-Data/2026-Tentative.ics
+  https://github.com/Dilshan-H/srilanka-holidays/blob/main/Tentative-Holiday-Data/2026-Tentative.ics
 
   > Mercantile Holiday values are not accurate. 'Poya' category has been added for future release.
 
