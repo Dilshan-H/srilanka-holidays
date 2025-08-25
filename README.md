@@ -5,20 +5,22 @@
 ![GitHub issues](https://img.shields.io/github/issues/Dilshan-H/srilanka-holidays?style=for-the-badge)
 ![GitHub pull requests](https://img.shields.io/github/issues-pr/Dilshan-H/srilanka-holidays?style=for-the-badge)
 
-<!-- ![GitHub stars](https://img.shields.io/github/stars/Dilshan-H/srilanka-holidays?style=for-the-badge)
-![GitHub forks](https://img.shields.io/github/forks/Dilshan-H/srilanka-holidays?style=for-the-badge) -->
+![GitHub stars](https://img.shields.io/github/stars/Dilshan-H/srilanka-holidays?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/Dilshan-H/srilanka-holidays?style=for-the-badge)
 
 ![GitHub Workflow Status](https://github.com/Dilshan-H/srilanka-holidays/actions/workflows/convert_ics.yaml/badge.svg)
-
-## Description
-
-An open-source API to get Sri Lankan holidays and a list of Sri Lankan holidays in several file formats for easy integration with your applications.
-
 ![API](https://img.shields.io/badge/api-red)
 ![csv](https://img.shields.io/badge/csv-blue)
 ![ics](https://img.shields.io/badge/ics-blue)
 ![json](https://img.shields.io/badge/json-blue)
 ![xml](https://img.shields.io/badge/xml-blue)
+
+![Sri Lanka Holidays - Free API and Holiday Data](https://github.com/user-attachments/assets/2992203b-9a09-44d2-bca8-fece9aff129d)
+
+
+## Description
+
+An open-source API to get Sri Lankan holidays and a list of Sri Lankan holidays in several file formats for easy integration with your applications.
 
 Holidays are updated every year and currently contains holidays starting from 2021.
 
@@ -27,6 +29,8 @@ Holidays are updated every year and currently contains holidays starting from 20
 | Project/App                                                             | Description                                                                    |
 | ----------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
 | [Simple-Calendar](https://github.com/SimpleMobileTools/Simple-Calendar) | A simple calendar with events, tasks, customizable colors, widgets and no ads. |
+
+\*Simple-Calendar has been deprecated and moved to **Fossify**: https://github.com/FossifyOrg/Calendar
 
 ## Why use this API/Data?
 
@@ -53,7 +57,7 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
 
 1. **Obtain an API Key**:
 
-   - Contact us to request a key (registration endpoint coming soon).
+   - Contact us to [request a key](https://srilanka-holidays.vercel.app)
    - Include your key in every request: `X-API-Key: your-key`.
 
 2. **Explore Endpoints**:
@@ -153,6 +157,18 @@ To test or contribute to the API, run it locally:
 ## Direct Downloadable Files
 
 From here you can download the list of holidays in several file formats and integrate with your applications directly without using the API.
+
+### [NEW] Tentative Holiday Data
+
+This section provides tentative holiday data files, which are available for early implementation. While these datasets are sourced from official channels, they remain incomplete as the finalized holiday data is typically released by the government in the final months of the year. Currently, these holidays are offered only as downloadable ICS files, and the data in this section is not yet integrated into the API.
+
+- **Year 2026 Tentative Holiday Data**
+
+  https://github.com/Dilshan-H/srilanka-holidays/Tentative-Holiday-Data/2026-Tentative.ics
+
+  > Mercantile Holiday values are not accurate. 'Poya' category has been added for future release.
+
+  > Source: The Gazette of the Democratic Socialist Republic of Sri Lanka, Government Notifications: No. 2438/22 - Tuesday, May 27, 2025
 
 ### iCalendar (ics) Format
 
