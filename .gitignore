@@ -14,7 +14,6 @@ dist/
 downloads/
 eggs/
 .eggs/
-lib/
 lib64/
 parts/
 sdist/
@@ -162,9 +161,8 @@ cython_debug/
 # Custom Files & Directories
 # --------------------------
 
-# TODO
-to-do.txt
-workflow.md
+# Workflow
+workflow/
 
 # Releases
 releases/

@@ -18,12 +18,13 @@ xml:
 json:
   - json/*
 
-# Add 'source data' to all changes in csv, ics, xml, and json directories
-source data:
+# Add 'srcdata' to all changes in csv, ics, xml, and json directories
+srcdata:
   - ics/*
   - csv/*
   - xml/*
   - json/*
+  - Tentative-Holiday-Data/*
 
 # Add 'api' to any changes within api
 api:
@@ -36,3 +37,7 @@ docs:
   - LICENSE
   - CONTRIBUTING.md
   - CODE_OF_CONDUCT.md
+
+# Add 'frontend' to any changes within frontend files
+frontend:
+  - public/*
