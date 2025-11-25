@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Sri Lanka Holidays API | Privacy Policy</title>
+
+    <!-- Meta Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Sri Lanka Holidays API: Access precise holiday data for Sri Lanka with ease. Free API and download data in many formats."
+    />
+    <meta name="keywords" content="Sri Lanka, Holidays, API, Travel, Tourism" />
+    <meta name="robots" content="index, follow" />
+    <meta name="msapplication-TileColor" content="#ffffff" />
+    <meta
+      name="msapplication-TileImage"
+      content="/public/img/web-app-manifest-192x192.png"
+    />
+    <meta name="theme-color" content="#ffffff" />
+
+    <!-- OG Meta Tags -->
+    <meta property="og:title" content="Sri Lanka Holidays API" />
+    <meta
+      property="og:description"
+      content="Access precise holiday data for Sri Lanka with ease. Free API and download data in many formats."
+    />
+    <meta
+      property="og:image"
+      content="https://srilanka-holidays.vercel.app/public/img/og-image.png"
+    />
+    <meta property="og:url" content="https://srilanka-holidays.vercel.app" />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sri Lanka Holidays API" />
+    <meta
+      name="twitter:description"
+      content="Access precise holiday data for Sri Lanka with ease. Free API and download data in many formats."
+    />
+    <meta
+      name="twitter:image"
+      content="https://srilanka-holidays.vercel.app/public/img/og-image.png"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" href="/public/img/favicon.ico" type="image/x-icon" />
+    <link
+      rel="icon"
+      href="/public/img/favicon-96x96.png"
+      type="image/png"
+      sizes="96x96"
+    />
+    <!-- Apple Touch Icon for iOS -->
+    <link rel="apple-touch-icon" href="/public/img/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="SLH" />
+    <!-- Other Icons -->
+    <link
+      rel="icon"
+      sizes="192x192"
+      href="/public/img/web-app-manifest-192x192.png"
+    />
+    <link
+      rel="icon"
+      sizes="512x512"
+      href="/public/img/web-app-manifest-512x512.png"
+    />
+
+    <!-- Manifest -->
+    <link rel="manifest" href="/public/site.webmanifest" />
+
+    <!-- Library Stylesheets -->
+    <link href="/public/lib/animate/animate.min.css" rel="stylesheet" />
+
+    <!-- Custom Stylesheet -->
+    <link href="/public/css/core.min.css" rel="stylesheet" />
+    <link href="/public/css/styles.min.css" rel="stylesheet" />
+    <link href="/public/css/dark-mode.min.css" rel="stylesheet" />
+
+    <!-- Custom CSS -->
+    <style>
+      ul > li {
+        margin-bottom: 1rem;
+      }
+
+      /* Font Styles */
+      /* nunito-regular - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito";
+        font-style: normal;
+        font-weight: 400;
+        src: url("/public/fonts/nunito-v32-latin-regular.woff2") format("woff2");
+      }
+
+      /* nunito-700 - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito";
+        font-style: normal;
+        font-weight: 700;
+        src: url("/public/fonts/nunito-v32-latin-700.woff2") format("woff2");
+      }
+
+      /* nunito-800 - latin */
+      @font-face {
+        font-display: swap;
+        font-family: "Nunito";
+        font-style: normal;
+        font-weight: 800;
+        src: url("/public/fonts/nunito-v32-latin-800.woff2") format("woff2");
+      }
+    </style>
+  </head>
+  <body>
+    <!-- noscript -->
+    <noscript>
+      <style>
+        .js-only {
+          display: none;
+        }
+        #noscript-warning {
+          margin: 5px;
+          padding: 1px;
+          border: 2px solid #ff0000;
+          background-color: #ffe6e6;
+          border-radius: 5px;
+          animation: fadeIn 0.8s ease-out, fadeOut 0.8s ease-in 3s forwards !important;
+          animation-duration: 3s;
+        }
+      </style>
+      <div
+        id="noscript-warning"
+        class="warnings"
+        style="
+          text-align: center;
+          position: fixed;
+          margin-top: 105px;
+          width: 90%;
+          left: 5%;
+          z-index: 1000;
+        "
+      >
+        <p class="cs-topper">JavaScript is disabled in your browser.</p>
+        <p style="margin-top: 2px; margin-bottom: 15px">
+          We respect your choice, but enabling it will make the site work
+          better.
+        </p>
+      </div>
+    </noscript>
+
+    <header id="cs-navigation">
+      <div class="cs-container">
+        <!--Nav Logo-->
+        <a href="/" class="cs-logo" aria-label="back to home">
+          <img
+            src="/public/img/logo_text.avif"
+            alt="Sri Lanka Holidays Logo"
+            width="100%"
+            aria-hidden="true"
+            decoding="async"
+          />
+        </a>
+        <!--Navigation List-->
+        <nav class="cs-nav" role="navigation">
+          <!--Mobile Nav Toggle-->
+          <button class="cs-toggle" aria-label="mobile menu toggle">
+            <div class="cs-box" aria-hidden="true">
+              <span class="cs-line cs-line1" aria-hidden="true"></span>
+              <span class="cs-line cs-line2" aria-hidden="true"></span>
+              <span class="cs-line cs-line3" aria-hidden="true"></span>
+            </div>
+          </button>
+
+          <div class="cs-ul-wrapper">
+            <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
+              <li class="cs-li">
+                <a href="/" class="cs-li-link cs-active"> Home </a>
+              </li>
+              <li class="cs-li">
+                <a href="/#why-choose-289" class="cs-li-link"> About </a>
+              </li>
+              <li class="cs-li">
+                <a href="/#faq-254" class="cs-li-link"> FAQ </a>
+              </li>
+              <li class="cs-li">
+                <a href="/docs" class="cs-li-link"> Docs </a>
+              </li>
+              <li class="cs-li">
+                <a href="mailto:halt-pledge-paper@duck.com" class="cs-li-link">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+
+        <button id="dark-mode-toggle" aria-label="dark mode toggle">
+          <svg
+            class="cs-moon"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 480 480"
+            style="enable-background: new 0 0 480 480"
+            xml:space="preserve"
+          >
+            <path
+              d="M459.782 347.328c-4.288-5.28-11.488-7.232-17.824-4.96-17.76 6.368-37.024 9.632-57.312 9.632-97.056 0-176-78.976-176-176 0-58.4 28.832-112.768 77.12-145.472 5.472-3.712 8.096-10.4 6.624-16.832S285.638 2.4 279.078 1.44C271.59.352 264.134 0 256.646 0c-132.352 0-240 107.648-240 240s107.648 240 240 240c84 0 160.416-42.688 204.352-114.176 3.552-5.792 3.04-13.184-1.216-18.496z"
+            />
+          </svg>
+          <img
+            class="cs-sun"
+            aria-hidden="true"
+            src="/public/img/Icons_sun.svg"
+            decoding="async"
+            alt="moon"
+            width="15"
+            height="15"
+          />
+        </button>
+      </div>
+    </header>
+
+    <div class="container" style="padding: 100px 10px">
+      <div
+        class="content"
+        style="padding: clamp(3rem, 4.9vw, 4rem) clamp(2.5rem, 10vw, 8.5rem)"
+      >
+        <h1 class="cs-title">Privacy Policy</h1>
+
+        <p class="cs-text">Last updated: November 2025</p>
+        <hr />
+        <h2 class="cs-topper" style="margin-top: 2.5rem">
+          Ultra-short version
+        </h2>
+
+        <ul class="list-disc">
+          <li>
+            <strong
+              >The website itself (this thing you're reading right now):</strong
+            >
+            Zero tracking. No tracking cookies, no analytics, no Vercel
+            Insights, no nothing. The only thing Vercel sees is what they need
+            for DDoS protection and basic routing — that's on them, not us.
+            <a
+              href="https://vercel.com/legal/privacy-policy"
+              target="_blank"
+              class="underline hover:text-blue-600"
+              >You can read their policy here</a
+            >.
+          </li>
+          <li>
+            <strong>Actually using the API:</strong>
+            We don't log your IP, we don't log which endpoints you call, and we
+            definitely don't care how long you stared at the JSON. Successful
+            requests = nothing stored. Failed/abuse-level requests = temporary
+            IP block (that's it) enforced by Vercel Firewall and DDoS
+            protection.
+          </li>
+          <li>
+            We don't use Google Analytics, Vercel Analytics, Plausible, or any
+            of that nonsense. We turned all of it off on purpose.
+          </li>
+          <li>
+            <strong
+              >Your email and associated name (only when you request an API
+              key):</strong
+            >
+            That's the only personal info we ever store. It goes straight into a
+            private Redis instance which is protected. We don't share it, sell
+            it, rent it, or accidentally CC your mom or boss on the newsletter
+            (well, there is no newsletter).
+          </li>
+          <li>
+            <strong>If you wish to use the buymeacoffee service:</strong>
+            We only receive the information you choose to share on Buy Me a
+            Coffee (e.g. display name, message). Payment details are handled by
+            their payment processors and are never shared with us. See Buy Me a
+            Coffee's privacy policy:
+            <a
+              href="https://buymeacoffee.com/privacy-policy"
+              target="_blank"
+              rel="noopener"
+              >buymeacoffee.com/privacy-policy</a
+            >.
+          </li>
+        </ul>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">
+          The boring but legally required bits
+        </h2>
+        <p class="text" style="margin-top: 1rem">
+          This website (https://srilanka-holidays.vercel.app/) AND the API
+          (https://srilanka-holidays.vercel.app/api) are hosted on Vercel. Like
+          any hosting provider, Vercel processes basic server logs (IP address,
+          request time, etc.) for security, performance, and abuse prevention.
+          We have disabled Vercel Analytics and all optional tracking features.
+          For details on what Vercel logs, please see their privacy-policy here:
+          <a
+            href="https://vercel.com/legal/privacy-policy"
+            target="_blank"
+            rel="noopener"
+            >vercel.com/legal/privacy-policy</a
+          >
+        </p>
+
+        <p class="text">
+          We only log the minimum required to protect the service from abuse
+          (typically IP address and timestamp in case of excessive requests or
+          attacks). These logs are retained only temporarily and are
+          automatically deleted shortly after.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">Use of Cookies</h2>
+        <p class="text">
+          This website does not use cookies for tracking or analytics. The only
+          cookies that may be set are essential for basic functionality, such as
+          session management for the dark mode toggle. These cookies do not
+          track your browsing behavior.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">Your Rights</h2>
+        <p class="text">
+          You can ask to view, update, or delete any personal information we
+          have about you at any time by contacting us at
+          <a href="mailto:halt-pledge-paper@duck.com"
+            >halt-pledge-paper[-at-]duck.com</a
+          >.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">
+          Will this ever change?
+        </h2>
+        <p class="text">
+          We have no plans to introduce tracking or additional data collection.
+          Should that ever change, we will clearly announce it and update this
+          policy before any new practices take effect.
+        </p>
+
+        <p class="text">
+          Questions? Reach out to us:
+          <a href="mailto:halt-pledge-paper@duck.com"
+            >halt-pledge-paper[-at-]duck.com</a
+          >
+        </p>
+      </div>
+    </div>
+
+    <!-- ============================================ -->
+    <!--                  Footer                      -->
+    <!-- ============================================ -->
+
+    <footer id="footer-1390">
+      <div class="cs-container">
+        <div class="cs-top">
+          <a aria-label="go back to home" class="cs-logo" href="/">
+            <img
+              class="cs-logo-img"
+              loading="lazy"
+              decoding="async"
+              src="/public/img/logo_text.png"
+              alt="logo"
+              width="209"
+              height="40"
+            />
+          </a>
+          <ul class="cs-ul">
+            <li class="cs-li">
+              <a href="/" class="cs-link">Home</a>
+            </li>
+            <li class="cs-li">
+              <a href="/#why-choose-289" class="cs-link">About</a>
+            </li>
+            <li class="cs-li">
+              <a href="/#faq-254" class="cs-link">FAQ</a>
+            </li>
+            <li class="cs-li">
+              <a href="/docs" class="cs-link">Docs</a>
+            </li>
+            <li class="cs-li">
+              <a href="mailto:halt-pledge-paper@duck.com" class="cs-link"
+                >Contact</a
+              >
+            </li>
+          </ul>
+        </div>
+        <div class="cs-bottom">
+          <!--Social-->
+          <ul class="cs-social">
+            <li class="cs-social-li">
+              <a
+                href="#"
+                class="cs-social-link"
+                aria-label="website"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  class="cs-social-icon cs-default"
+                  src="/public/img/web.svg"
+                  alt="icon"
+                  loading="lazy"
+                  decoding="async"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+            <li class="cs-social-li">
+              <a
+                href="https://github.com/Dilshan-H/"
+                class="cs-social-link"
+                aria-label="github"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  class="cs-social-icon cs-default"
+                  src="/public/img/github.svg"
+                  alt="icon"
+                  loading="lazy"
+                  decoding="async"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+            <li class="cs-social-li">
+              <a
+                href="https://www.buymeacoffee.com/dilshanh"
+                class="cs-social-link"
+                aria-label="buy me a coffee"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  class="cs-social-icon cs-default"
+                  src="/public/img/buymeacoffee.svg"
+                  alt="icon"
+                  loading="lazy"
+                  decoding="async"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+            <li class="cs-social-li">
+              <a
+                href="mailto:halt-pledge-paper@duck.com"
+                class="cs-social-link"
+                aria-label="email"
+                target="_blank"
+                rel="noopener"
+              >
+                <img
+                  class="cs-social-icon cs-default"
+                  src="/public/img/email.svg"
+                  alt="icon"
+                  loading="lazy"
+                  decoding="async"
+                  width="20"
+                  height="20"
+                  aria-hidden="true"
+                />
+              </a>
+            </li>
+          </ul>
+          <span class="cs-copyright">
+            © Copyright 2025 |
+            <a
+              href="https://github.com/Dilshan-H/"
+              target="_blank"
+              class="cs-copyright-link"
+              >dilshan-h</a
+            >
+          </span>
+          <div class="cs-flex">
+            <a href="/privacy-policy" class="cs-copyright-link"
+              >Privacy Policy</a
+            >
+            <span class="cs-separater">|</span>
+            <a href="/terms-of-use" class="cs-copyright-link">Terms of Use</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="public/js/main.js" defer></script>
+    <script src="public/js/dark-mode.js" defer></script>
+  </body>
+</html>

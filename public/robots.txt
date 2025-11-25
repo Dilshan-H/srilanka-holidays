@@ -1,0 +1,15 @@
+# Okay, since you've come this far...enjoy some jokes about our fellow 'robots':
+#  * Why did the robot get so angry? --- Everyone was pushing his buttons.
+#  * What do robot dogs do? --- They byte.
+#  * Why was the robot bankrupt? --- Because it had to use all its cache.
+
+User-agent: *
+Allow: /
+Allow: /public/index.html
+Allow: /privacy-policy
+Allow: /terms-of-use
+
+Disallow: /api/
+Disallow: /docs
+Disallow: /redoc
+Disallow: /openapi.json

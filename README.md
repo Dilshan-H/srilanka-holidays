@@ -17,12 +17,11 @@
 
 ![Sri Lanka Holidays - Free API and Holiday Data](https://github.com/user-attachments/assets/2992203b-9a09-44d2-bca8-fece9aff129d)
 
-
 ## Description
 
-An open-source API to get Sri Lankan holidays and a list of Sri Lankan holidays in several file formats for easy integration with your applications.
+An open-source API that provides accurate Sri Lankan holiday data, offering a comprehensive list of public holidays in multiple file formats for easy integration into your applications.
 
-Holidays are updated every year and currently contains holidays starting from 2021.
+Holidays are updated every year and currently contains holidays starting from 2021. All records are validated through manual inspection, No AI or scripts!
 
 ## Powered Projects
 
@@ -42,11 +41,13 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 ## API
 
+![Uptime Robot status](https://img.shields.io/uptimerobot/status/m801863984-21c7b9399c6e347151e59c53?up_message=Operational&down_message=Unavailable&style=for-the-badge&logo=supabase&logoColor=green&label=API%20Status)
+
 The API is live at https://srilanka-holidays.vercel.app and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
 ### API Features
 
-- **Holiday Lists**: Retrieve holidays for any year or filter by month and type (e.g., public, religious).
+- **Holiday Lists**: Retrieve holidays for any year or filter by month and type (public, poya, mercantile, bank).
 - **Date Checker**: Check if a specific date is a holiday with detailed info (e.g., holiday name, type).
 - **API Key Authentication**: Secure access using `X-API-Key` header.
 - **Redis Caching**: Lightning-fast responses with cached data.
@@ -57,7 +58,7 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
 
 1. **Obtain an API Key**:
 
-   - Contact us to [request a key](https://srilanka-holidays.vercel.app)
+   - Contact us to [request a free API key](https://srilanka-holidays.vercel.app)
    - Include your key in every request: `X-API-Key: your-key`.
 
 2. **Explore Endpoints**:
@@ -80,10 +81,10 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
 
 3. **Read the Docs**:
 
-   - Visit `https://srilanka-holidays.vercel.app/docs` for interactive Swagger UI or `https://srilanka-holidays.vercel.app/redoc` for ReDoc.
+   - Visit https://srilanka-holidays.vercel.app/docs for interactive Swagger UI or https://srilanka-holidays.vercel.app/redoc for ReDoc.
 
 4. **Homepage**:
-   - Check out `https://srilanka-holidays.vercel.app` for an overview and quick start guide.
+   - Check out https://srilanka-holidays.vercel.app for an overview and request a free API key.
 
 ### Running & Testing API Locally
 
@@ -95,8 +96,8 @@ To test or contribute to the API, run it locally:
 1. **Clone the Repository**:
 
    ```bash
-   git clone https://github.com/your-username/sri-lanka-holidays-api.git
-   cd sri-lanka-holidays-api
+   git clone https://github.com/Dilshan-H/srilanka-holidays.git
+   cd srilanka-holidays
    ```
 
 2. **Set Up a Virtual Environment**:
@@ -109,7 +110,7 @@ To test or contribute to the API, run it locally:
 3. **Install Dependencies**:
 
    ```bash
-   pip install -r requirements-api.txt
+   pip install -r requirements.txt
    ```
 
 4. **Setup REDIS database**:
@@ -158,17 +159,17 @@ To test or contribute to the API, run it locally:
 
 From here you can download the list of holidays in several file formats and integrate with your applications directly without using the API.
 
-### [NEW] Tentative Holiday Data
+### Tentative Holiday Data
 
 This section provides tentative holiday data files, which are available for early implementation. While these datasets are sourced from official channels, they remain incomplete as the finalized holiday data is typically released by the government in the final months of the year. Currently, these holidays are offered only as downloadable ICS files, and the data in this section is not yet integrated into the API.
 
-- **Year 2026 Tentative Holiday Data**
+- **Year 2027 Tentative Holiday Data**
 
-  https://github.com/Dilshan-H/srilanka-holidays/blob/main/Tentative-Holiday-Data/2026-Tentative.ics
+  Upcoming data will be posted here after verification.
 
-  > Mercantile Holiday values are not accurate. 'Poya' category has been added for future release.
+  > Notes: [Additional details/comments]
 
-  > Source: The Gazette of the Democratic Socialist Republic of Sri Lanka, Government Notifications: No. 2438/22 - Tuesday, May 27, 2025
+  > Source: [Data sources]
 
 ### iCalendar (ics) Format
 
@@ -179,7 +180,8 @@ This section provides tentative holiday data files, which are available for earl
 |    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics                      |
 |    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics                      |
 |    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics                      |
-| 2021 - 2025 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-25/2021-2025.ics |
+|    2026     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2026.ics                      |
+| 2021 - 2026 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-26/2021-2026.ics |
 
 ### Other Formats
 
@@ -190,6 +192,8 @@ These files are generated automatically from the iCalendar files and are availab
 | JSON   | https://github.com/Dilshan-H/srilanka-holidays/tree/main/json |
 | CSV    | https://github.com/Dilshan-H/srilanka-holidays/tree/main/csv  |
 | XML    | https://github.com/Dilshan-H/srilanka-holidays/tree/main/xml  |
+
+If you're unable to download individual files, please visit the releases page [here](https://github.com/Dilshan-H/srilanka-holidays/releases/) to download specific versions or [download](https://github.com/Dilshan-H/srilanka-holidays/archive/refs/heads/main.zip) the source code as a zip file, which you can extract to find the data inside the respective folders.
 
 ## Data Sources
 
@@ -204,7 +208,8 @@ Holidays are divided into several categories based on the default categorization
 
 The following categories are used:
 
-- **Public Holidays** - Holidays that are celebrated by the general public including poya days.
+- **Public Holidays**
+- **Poya Holidays**
 - **Bank Holidays**
 - **Mercantile Holidays**
 
