@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Sri Lanka Holidays API</title>
+    <title>Sri Lanka Holidays API | Terms of Use</title>
 
     <!-- Meta Tags -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -79,6 +79,7 @@
     <link href="/public/css/styles.min.css" rel="stylesheet" />
     <link href="/public/css/dark-mode.min.css" rel="stylesheet" />
 
+    <!-- Custom CSS -->
     <style>
       /* Font Styles */
       /* nunito-regular - latin */
@@ -149,7 +150,7 @@
     <header id="cs-navigation">
       <div class="cs-container">
         <!--Nav Logo-->
-        <a href="" class="cs-logo" aria-label="back to home">
+        <a href="/" class="cs-logo" aria-label="back to home">
           <img
             src="/public/img/logo_text.avif"
             alt="Sri Lanka Holidays Logo"
@@ -172,13 +173,13 @@
           <div class="cs-ul-wrapper">
             <ul id="cs-expanded" class="cs-ul" aria-expanded="false">
               <li class="cs-li">
-                <a href="#" class="cs-li-link cs-active"> Home </a>
+                <a href="/" class="cs-li-link cs-active"> Home </a>
               </li>
               <li class="cs-li">
-                <a href="#why-choose-289" class="cs-li-link"> About </a>
+                <a href="/#why-choose-289" class="cs-li-link"> About </a>
               </li>
               <li class="cs-li">
-                <a href="#faq-254" class="cs-li-link"> FAQ </a>
+                <a href="/#faq-254" class="cs-li-link"> FAQ </a>
               </li>
               <li class="cs-li">
                 <a href="/docs" class="cs-li-link"> Docs </a>
@@ -199,8 +200,6 @@
             viewBox="0 0 480 480"
             style="enable-background: new 0 0 480 480"
             xml:space="preserve"
-            alt="moon"
-            aria-label="Dark Theme"
           >
             <path
               d="M459.782 347.328c-4.288-5.28-11.488-7.232-17.824-4.96-17.76 6.368-37.024 9.632-57.312 9.632-97.056 0-176-78.976-176-176 0-58.4 28.832-112.768 77.12-145.472 5.472-3.712 8.096-10.4 6.624-16.832S285.638 2.4 279.078 1.44C271.59.352 264.134 0 256.646 0c-132.352 0-240 107.648-240 240s107.648 240 240 240c84 0 160.416-42.688 204.352-114.176 3.552-5.792 3.04-13.184-1.216-18.496z"
@@ -211,8 +210,7 @@
             aria-hidden="true"
             src="/public/img/Icons_sun.svg"
             decoding="async"
-            alt="sun"
-            aria-label="Light Theme"
+            alt="moon"
             width="15"
             height="15"
           />
@@ -220,287 +218,103 @@
       </div>
     </header>
 
-    <!-- Hero -->
-    <section id="hero-408">
-      <div class="cs-container">
-        <div class="cs-content">
-          <h2 class="cs-title animate__animated animate__fadeInDown">
-            <span class="cs-color">Sri Lanka Holidays</span>Powered by
-            Simplicity
+    <div class="container" style="padding: 100px 10px">
+      <div
+        class="content"
+        style="padding: clamp(3rem, 4.9vw, 4rem) clamp(2.5rem, 10vw, 8.5rem)"
+      >
+        <h1 class="cs-title">Terms of Use</h1>
+        <p class="cs-text">Last updated: November 2025</p>
+        <hr />
+
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            1. It's free. Be nice.
           </h2>
-          <p class="cs-text animate__animated animate__fadeIn">
-            Access precise holiday data for Sri Lanka with ease. Free API and
-            downloadable data in many formats.
-          </p>
-          <a
-            href="#faq-254"
-            class="cs-button-solid animate__animated animate__fadeIn"
-            >Get Started</a
-          >
-          <a
-            href="https://github.com/Dilshan-H/srilanka-holidays"
-            target="_blank"
-            rel="noopener"
-            class="cs-button-transparent animate__animated animate__fadeIn"
-            >Visit Github</a
-          >
-        </div>
-        <div class="cs-stat-group animate__animated animate__backInRight">
-          <picture class="cs-background">
-            <source
-              media="(max-width: 600px)"
-              srcset="/public/img/Hero-Side.avif"
-            />
-            <source
-              media="(min-width: 601px)"
-              srcset="/public/img/Hero-Side.avif"
-            />
-            <img
-              loading="lazy"
-              decoding="async"
-              src="/public/img/Hero-Side.avif"
-              alt="Sample curl command format with example response output"
-              aria-hidden="true"
-              id="perspective-image"
-              draggable="false"
-            />
-          </picture>
-          <picture
-            class="cs-background"
-            id="content-image"
-            style="display: none"
-          >
-            <source
-              media="(max-width: 600px)"
-              srcset="/public/img/Hero-Side-2.avif"
-            />
-            <source
-              media="(min-width: 601px)"
-              srcset="/public/img/Hero-Side-2.avif"
-            />
-            <img
-              loading="lazy"
-              decoding="async"
-              src="/public/img/Hero-Side-2.avif"
-              alt="Meme of Michael Scott from The Office shouting with a distressed expression"
-              aria-hidden="true"
-              id="perspective-image-with-content"
-              draggable="false"
-              class="image-window"
-            />
-          </picture>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============================================ -->
-    <!--                Features Section              -->
-    <!-- ============================================ -->
-
-    <section id="why-choose-289">
-      <div class="cs-container">
-        <div class="cs-content animate__animated animate__fadeInUp">
-          <div class="cs-flex">
-            <span class="cs-topper">About</span>
-            <h2 class="cs-title">Why use this API or Data?</h2>
-          </div>
-          <p class="cs-text">
-            Looking for reliable Sri Lankan holiday data? This API has you
-            covered with fresh, accurate updates you can drop right into your
-            app. Bonus: it's completely open-source!
+          <p class="text" style="margin-top: 1rem">
+            This API is provided free of charge and will remain free. It is
+            hosted on a standard Vercel plan with limited resources. Please use
+            it responsibly and avoid excessive request rates that could degrade
+            performance for all users.
           </p>
         </div>
-        <ul class="cs-card-group animate__animated animate__fadeInUp">
-          <li class="cs-item">
-            <img
-              class="cs-icon"
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              src="/public/img/verify.svg"
-              alt="verified icon"
-              width="48"
-              height="48"
-            />
-            <h3 class="cs-h3">Verified Data</h3>
-            <p class="cs-item-text">
-              All holiday information comes directly from official Sri Lankan
-              government sources, including the Ministry of Home Affairs and the
-              Government Gazette—ensuring accuracy and trust you can rely on.
-            </p>
-          </li>
-          <li class="cs-item">
-            <img
-              class="cs-icon"
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              src="/public/img/api.svg"
-              alt="API icon"
-              width="40"
-              height="48"
-            />
-            <h3 class="cs-h3">API + Data</h3>
-            <p class="cs-item-text">
-              Access up-to-date Sri Lankan holidays through a simple,
-              open-source API or download ready-to-use files in multiple
-              formats. Perfect for seamless integration in any app or workflow.
-            </p>
-          </li>
-          <li class="cs-item">
-            <img
-              class="cs-icon"
-              aria-hidden="true"
-              loading="lazy"
-              decoding="async"
-              src="/public/img/redis.svg"
-              alt="Redis icon"
-              width="48"
-              height="48"
-            />
-            <h3 class="cs-h3">Fast & Secure</h3>
-            <p class="cs-item-text">
-              Built with Redis caching for lightning-fast responses and
-              protected with API key authentication, the API ensures reliable,
-              secure access every time.
-            </p>
-          </li>
-        </ul>
-      </div>
-    </section>
 
-    <!-- ============================================ -->
-    <!--                    FAQ                       -->
-    <!-- ============================================ -->
-
-    <section id="faq-254">
-      <div class="cs-container">
-        <div class="cs-content animate__animated animate__fadeInUp">
-          <span class="cs-topper">FAQs</span>
-          <h2 class="cs-title">Frequently Asked Questions</h2>
-          <p class="cs-text">
-            Everything you wanted to know about the Sri Lankan Holidays API. If
-            something is still unclear after reading this, just drop us an email
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            2. Rate limiting exists
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            If requests exceed reasonable limits, you will receive an HTTP 429
+            (Too Many Requests) response. We strongly recommend caching
+            responses on your end where possible — this keeps the service fast
+            and reliable for everyone.
           </p>
         </div>
-        <div class="cs-flex-group animate__animated animate__fadeInUp">
-          <ul class="cs-faq-group">
-            <!-- Active class added as default -->
-            <li class="cs-faq-item active">
-              <button class="cs-button">
-                Why bother when there are already dozens of holiday websites out
-                there?
-              </button>
-              <p tabindex="0" class="cs-item-p">
-                Fair question. Sri Lanka's holiday system is… let's say
-                “vibrant”. Between statutory holidays, poya days, ad-hoc
-                changes, and overlapping observances, things can get
-                unpredictable. This project focuses on verified data only from
-                official government sources, updated annually, structured
-                properly, and delivered in a developer-friendly format. <br />No
-                guesswork. No <i>“random blog from 2014.”</i>
-              </p>
-            </li>
-            <li class="cs-faq-item">
-              <button class="cs-button">
-                I don't need an API. Where can I just download the data?
-              </button>
-              <p tabindex="0" class="cs-item-p">
-                Easy. All holiday data is available directly on GitHub. Perfect
-                if you just want the data without touching the API.
-                <br />You can download holidays in multiple formats:
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/tree/main/json"
-                  target="_blank"
-                  >JSON</a
-                >,
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/tree/main/csv"
-                  target="_blank"
-                  >CSV</a
-                >,
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/tree/main/ics"
-                  target="_blank"
-                  >ICS (Calendar)</a
-                >,
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/tree/main/xml"
-                  target="_blank"
-                  >XML</a
-                >. <br /><a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/releases/"
-                  target="_blank"
-                  >Check releases</a
-                >
-                for direct downloads.
-              </p>
-            </li>
-            <li class="cs-faq-item">
-              <button class="cs-button">
-                Where do you even get this data from?
-              </button>
-              <p tabindex="0" class="cs-item-p">
-                Straight from the source — literally: <br />The State Ministry
-                of Home Affairs, The Department of Government Printing,
-                Government Gazette publications. <br />
-                No scraping. No guessing. No
-                <i>“my uncle said it's a holiday.”</i>
-              </p>
-            </li>
-            <li class="cs-faq-item">
-              <button class="cs-button">
-                Are there any API limits I should know about?
-              </button>
-              <p tabindex="0" class="cs-item-p">
-                It's free. It runs on a basic Vercel plan. So yes — if you
-                hammer it with thousands of requests per minute, you'll probably
-                get a 429 (Too Many Requests) and things will slow down. Be
-                nice. Cache your requests. Everyone stays happy.
-              </p>
-            </li>
-            <li class="cs-faq-item">
-              <button class="cs-button">
-                This is helpful! How can I support the project?
-              </button>
-              <p tabindex="0" class="cs-item-p">
-                I'm glad you asked 😄 <br />
-                -
-                <a href="https://www.buymeacoffee.com/dilshanh" target="_blank"
-                  >Buy me a coffee</a
-                >
-                <br />
-                - Star the
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays"
-                  target="_blank"
-                  >GitHub repo</a
-                >
-                <br />
-                -
-                <a
-                  href="https://github.com/Dilshan-H/srilanka-holidays/issues/new"
-                  target="_blank"
-                  >Open issues</a
-                >
-                or submit pull requests if you find bugs or want to improve the
-                project. Your support helps keep the API free and available for
-                everyone!
-              </p>
-            </li>
-          </ul>
-          <div class="cs-cta">
-            <h3 class="cs-h3">Ready to get started?</h3>
-            <p tabindex="0" class="cs-cta-p">
-              Drop us an email and we'll send you that free API key right away!
-            </p>
-            <a href="mailto:halt-pledge-paper@duck.com" class="cs-button-solid"
-              >Contact us</a
-            >
-          </div>
+
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            3. The data is pretty accurate, but…
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            All holiday information is sourced directly from official sources by
+            the relevant Sri Lankan authorities. While we make every effort to
+            keep the data current and accurate, last-minute changes by the
+            government can and do occasionally occur.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            4. A short disclaimer
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            The data is provided “as is” for convenience. We cannot guarantee
+            that a listed holiday will not be revoked or that a working day will
+            not suddenly become a holiday. You are responsible for verifying
+            critical dates when they affect payroll, leave, or legal
+            obligations.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            5. Attribution (because MIT License says so)
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            The project is released under the MIT License. You are free to use
+            it in personal or commercial projects. If you redistribute the data
+            or the source code, please retain the original copyright notice and
+            license file (or a clear attribution to the project). That's all we
+            ask.
+          </p>
+        </div>
+
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            6. We can revoke your key
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            We reserve the right to revoke or suspend any API key without prior
+            notice in cases of clear abuse (e.g., excessive requests, attempts
+            to bypass rate limits, or unauthorized scraping).
+          </p>
+        </div>
+
+        <hr style="margin-top: 2.5rem" />
+        <div>
+          <h2 class="cs-topper" style="margin-top: 2.5rem">
+            Acceptance and Scope of These Terms
+          </h2>
+          <p class="text" style="margin-top: 1rem">
+            By accessing this website, requesting an API key, sending an email
+            to request a key, or using the Sri Lankan Holidays API (with OR
+            without a valid API key), you agree to be bound by these Terms of
+            Use and the Privacy Policy. If you do not agree with any part of
+            these terms, please do not use the service.
+          </p>
         </div>
       </div>
-    </section>
+    </div>
 
     <!-- ============================================ -->
     <!--                  Footer                      -->
@@ -509,7 +323,7 @@
     <footer id="footer-1390">
       <div class="cs-container">
         <div class="cs-top">
-          <a aria-label="go back to home" class="cs-logo" href="">
+          <a aria-label="go back to home" class="cs-logo" href="/">
             <img
               class="cs-logo-img"
               loading="lazy"
@@ -522,13 +336,13 @@
           </a>
           <ul class="cs-ul">
             <li class="cs-li">
-              <a href="#" class="cs-link">Home</a>
+              <a href="/" class="cs-link">Home</a>
             </li>
             <li class="cs-li">
-              <a href="#why-choose-289" class="cs-link">About</a>
+              <a href="/#why-choose-289" class="cs-link">About</a>
             </li>
             <li class="cs-li">
-              <a href="#faq-254" class="cs-link">FAQ</a>
+              <a href="/#faq-254" class="cs-link">FAQ</a>
             </li>
             <li class="cs-li">
               <a href="/docs" class="cs-link">Docs</a>

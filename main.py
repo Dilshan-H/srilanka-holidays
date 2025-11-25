@@ -6,8 +6,21 @@ Author: Dilshan-H (https://github.com/Dilshan-H)
 License: MIT License
 URL: https://github.com/Dilshan-H/srilanka-holidays
 
-API endpoints.
+API endpoints:
+    [Frontend]
+    ------------
     - / (home page)
+    - /favicon.ico (favicon)
+    - /robots.txt (robots.txt)
+    - /privacy-policy (privacy policy page)
+    - /terms-of-use (terms of use page)
+
+    [API - No Auth]
+    ------------
+    - /api/v1/health (health check - HEAD request)
+
+    [API - With Auth]
+    ------------
     - /api/v1/status (status of the API)
     - /api/v1/version (version of the API)
     - /api/v1/coverage (check data coverage for a given year)
@@ -43,11 +56,11 @@ logger.info("Loading environment variables from .env file")
 load_dotenv()
 
 # Define API version
-API_VERSION = "1.0.0"
+API_VERSION = "1.1.0"
 
 # Define year limits
 YEAR_MIN = 2021
-YEAR_MAX = 2025
+YEAR_MAX = 2026
 
 # Get fallback API keys from environment variables
 FALLBACK_API_KEYS = os.getenv("API_KEYS", "").split(",")
@@ -195,6 +208,7 @@ async def get_holiday_info(year: int, month: int, day: int):
             )
 
     # Process holiday data (from cache or file)
+    matches = []
     for holiday in holiday_data:
         try:
             start_date = datetime.strptime(holiday["start"], "%Y-%m-%d").date()
@@ -204,29 +218,43 @@ async def get_holiday_info(year: int, month: int, day: int):
             continue  # Skip invalid holiday entries
 
         if start_date <= date_to_check < end_date:
-            return (
-                date_to_check,
-                status.HTTP_200_OK,
+            matches.append(
                 {
-                    "day": date_to_check.strftime("%A"),
-                    "week": date_to_check.strftime("%W"),
-                    "month": date_to_check.strftime("%B"),
-                    "is_holiday": True,
-                    "id": holiday["uid"],
-                    "holiday": holiday["summary"],
-                    "type": holiday["categories"],
-                    "holiday_start": holiday["start"],
-                    "holiday_end": holiday["end"],
-                },
+                    "id": holiday.get("uid"),
+                    "holiday": holiday.get("summary"),
+                    "type": holiday.get("categories"),
+                    "holiday_start": holiday.get("start"),
+                    "holiday_end": holiday.get("end"),
+                }
             )
 
-    return (
-        date_to_check,
-        status.HTTP_200_OK,
-        {
-            "is_holiday": False,
-        },
-    )
+    if matches:
+        result = {
+            "day": date_to_check.strftime("%A"),
+            "week": date_to_check.strftime("%W"),
+            "month": date_to_check.strftime("%B"),
+            "is_holiday": True,
+            "count": len(matches),
+            "holidays": matches,
+        }
+
+        # Backwards-compatibility: if exactly one holiday, include the old top-level fields
+        if len(matches) == 1:
+            single = matches[0]
+            result.update(
+                {
+                    "id": single.get("id"),
+                    "holiday": single.get("summary"),
+                    "type": single.get("type"),
+                    "holiday_start": single.get("holiday_start"),
+                    "holiday_end": single.get("holiday_end"),
+                    "deprecated_warning": "This response structure is deprecated and will be removed in future versions. Please migrate to the new 'holidays' array format to ensure future compatibility.",
+                }
+            )
+
+        return date_to_check, status.HTTP_200_OK, result
+
+    return date_to_check, status.HTTP_200_OK, {"is_holiday": False}
 
 
 @app.get("/")
@@ -235,14 +263,57 @@ async def root():
     return FileResponse("public/index.html", media_type="text/html")
 
 
+@app.get("/favicon.ico")
+async def favicon():
+    """Serve favicon"""
+    return FileResponse("public/img/favicon.ico", media_type="image/x-icon")
+
+
+@app.get("/robots.txt")
+async def robots():
+    """Serve robots.txt"""
+    return FileResponse("public/robots.txt", media_type="text/plain")
+
+
+@app.get("/privacy-policy")
+async def page_privacy_policy():
+    """Return privacy policy page"""
+    return FileResponse("public/privacy-policy.html", media_type="text/html")
+
+
+@app.get("/terms-of-use")
+async def page_terms_of_use():
+    """Return terms of use page"""
+    return FileResponse("public/terms-of-use.html", media_type="text/html")
+
+
+@app.head("/api/v1/health")
+async def api_health_head():
+    """Return status of the API (HEAD request)"""
+    return Response(status_code=status.HTTP_200_OK)
+
+
 @app.get("/api/v1/status")
-async def api_status():
+async def api_status(
+    api_key: str = Depends(verify_api_key),
+):
     """Return status of the API"""
-    return {"status": "ok"}
+    return {
+        "status": "ok",
+        "api_version": API_VERSION,
+        "API_Key_Validation": "successful",
+        "timestamp": datetime.now().isoformat(),
+        "redis_connected": REDIS_CLIENT is not None,
+        "data_store_year_min": YEAR_MIN,
+        "data_store_year_max": YEAR_MAX,
+        "message": "It seems like API is up and running smoothly!",
+    }
 
 
 @app.get("/api/v1/version")
-async def api_version():
+async def api_version(
+    api_key: str = Depends(verify_api_key),
+):
     """Return version of the API"""
     return {
         "version": API_VERSION,
@@ -357,6 +428,8 @@ async def holidays_list(
 
     # Filter and format holidays
     result = []
+    # Track seen dates when returning simple format to avoid duplicates
+    seen_dates = set()
     for holiday in holiday_data:
         try:
             if "start" not in holiday or "end" not in holiday:
@@ -372,6 +445,10 @@ async def holidays_list(
                 continue
             # Format output
             if format == "simple":
+                # Avoid adding the same date multiple times
+                if holiday["start"] in seen_dates:
+                    continue
+                seen_dates.add(holiday["start"])
                 result.append(holiday["start"])
             else:
                 result.append(
