@@ -15,7 +15,7 @@
     <meta name="msapplication-TileColor" content="#ffffff" />
     <meta
       name="msapplication-TileImage"
-      content="/public/img/web-app-manifest-192x192.png"
+      content="img/web-app-manifest-192x192.png"
     />
     <meta name="theme-color" content="#ffffff" />
 
@@ -27,9 +27,10 @@
     />
     <meta
       property="og:image"
-      content="https://srilanka-holidays.vercel.app/public/img/og-image.png"
+      content="https://srilanka-holidays.vercel.app/img/og-image.png"
     />
     <meta property="og:url" content="https://srilanka-holidays.vercel.app" />
+    <meta property="og:site_name" content="Sri Lanka Holidays API" />
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="en_US" />
 
@@ -42,42 +43,34 @@
     />
     <meta
       name="twitter:image"
-      content="https://srilanka-holidays.vercel.app/public/img/og-image.png"
+      content="https://srilanka-holidays.vercel.app/img/og-image.png"
     />
 
     <!-- Favicon -->
-    <link rel="icon" href="/public/img/favicon.ico" type="image/x-icon" />
+    <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
     <link
       rel="icon"
-      href="/public/img/favicon-96x96.png"
+      href="img/favicon-96x96.png"
       type="image/png"
       sizes="96x96"
     />
     <!-- Apple Touch Icon for iOS -->
-    <link rel="apple-touch-icon" href="/public/img/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="SLH" />
     <!-- Other Icons -->
-    <link
-      rel="icon"
-      sizes="192x192"
-      href="/public/img/web-app-manifest-192x192.png"
-    />
-    <link
-      rel="icon"
-      sizes="512x512"
-      href="/public/img/web-app-manifest-512x512.png"
-    />
+    <link rel="icon" sizes="192x192" href="img/web-app-manifest-192x192.png" />
+    <link rel="icon" sizes="512x512" href="img/web-app-manifest-512x512.png" />
 
     <!-- Manifest -->
-    <link rel="manifest" href="/public/site.webmanifest" />
+    <link rel="manifest" href="site.webmanifest" />
 
     <!-- Library Stylesheets -->
-    <link href="/public/lib/animate/animate.min.css" rel="stylesheet" />
+    <link href="lib/animate/animate.min.css" rel="stylesheet" />
 
     <!-- Custom Stylesheet -->
-    <link href="/public/css/core.min.css" rel="stylesheet" />
-    <link href="/public/css/styles.min.css" rel="stylesheet" />
-    <link href="/public/css/dark-mode.min.css" rel="stylesheet" />
+    <link href="css/core.min.css" rel="stylesheet" />
+    <link href="css/styles.min.css" rel="stylesheet" />
+    <link href="css/dark-mode.min.css" rel="stylesheet" />
 
     <style>
       /* Font Styles */
@@ -87,7 +80,7 @@
         font-family: "Nunito";
         font-style: normal;
         font-weight: 400;
-        src: url("/public/fonts/nunito-v32-latin-regular.woff2") format("woff2");
+        src: url("fonts/nunito-v32-latin-regular.woff2") format("woff2");
       }
 
       /* nunito-700 - latin */
@@ -96,7 +89,7 @@
         font-family: "Nunito";
         font-style: normal;
         font-weight: 700;
-        src: url("/public/fonts/nunito-v32-latin-700.woff2") format("woff2");
+        src: url("fonts/nunito-v32-latin-700.woff2") format("woff2");
       }
 
       /* nunito-800 - latin */
@@ -105,7 +98,7 @@
         font-family: "Nunito";
         font-style: normal;
         font-weight: 800;
-        src: url("/public/fonts/nunito-v32-latin-800.woff2") format("woff2");
+        src: url("fonts/nunito-v32-latin-800.woff2") format("woff2");
       }
     </style>
   </head>
@@ -151,7 +144,7 @@
         <!--Nav Logo-->
         <a href="" class="cs-logo" aria-label="back to home">
           <img
-            src="/public/img/logo_text.avif"
+            src="img/logo_text.avif"
             alt="Sri Lanka Holidays Logo"
             width="100%"
             aria-hidden="true"
@@ -209,7 +202,7 @@
           <img
             class="cs-sun"
             aria-hidden="true"
-            src="/public/img/Icons_sun.svg"
+            src="img/Icons_sun.svg"
             decoding="async"
             alt="sun"
             aria-label="Light Theme"
@@ -247,18 +240,12 @@
         </div>
         <div class="cs-stat-group animate__animated animate__backInRight">
           <picture class="cs-background">
-            <source
-              media="(max-width: 600px)"
-              srcset="/public/img/Hero-Side.avif"
-            />
-            <source
-              media="(min-width: 601px)"
-              srcset="/public/img/Hero-Side.avif"
-            />
+            <source media="(max-width: 600px)" srcset="/img/Hero-Side.avif" />
+            <source media="(min-width: 601px)" srcset="/img/Hero-Side.avif" />
             <img
               loading="lazy"
               decoding="async"
-              src="/public/img/Hero-Side.avif"
+              src="img/Hero-Side.avif"
               alt="Sample curl command format with example response output"
               aria-hidden="true"
               id="perspective-image"
@@ -270,18 +257,12 @@
             id="content-image"
             style="display: none"
           >
-            <source
-              media="(max-width: 600px)"
-              srcset="/public/img/Hero-Side-2.avif"
-            />
-            <source
-              media="(min-width: 601px)"
-              srcset="/public/img/Hero-Side-2.avif"
-            />
+            <source media="(max-width: 600px)" srcset="/img/Hero-Side-2.avif" />
+            <source media="(min-width: 601px)" srcset="/img/Hero-Side-2.avif" />
             <img
               loading="lazy"
               decoding="async"
-              src="/public/img/Hero-Side-2.avif"
+              src="img/Hero-Side-2.avif"
               alt="Meme of Michael Scott from The Office shouting with a distressed expression"
               aria-hidden="true"
               id="perspective-image-with-content"
@@ -317,7 +298,7 @@
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              src="/public/img/verify.svg"
+              src="img/verify.svg"
               alt="verified icon"
               width="48"
               height="48"
@@ -335,7 +316,7 @@
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              src="/public/img/api.svg"
+              src="img/api.svg"
               alt="API icon"
               width="40"
               height="48"
@@ -353,7 +334,7 @@
               aria-hidden="true"
               loading="lazy"
               decoding="async"
-              src="/public/img/redis.svg"
+              src="img/redis.svg"
               alt="Redis icon"
               width="48"
               height="48"
@@ -514,7 +495,7 @@
               class="cs-logo-img"
               loading="lazy"
               decoding="async"
-              src="/public/img/logo_text.png"
+              src="img/logo_text.png"
               alt="logo"
               width="209"
               height="40"
@@ -553,7 +534,7 @@
               >
                 <img
                   class="cs-social-icon cs-default"
-                  src="/public/img/web.svg"
+                  src="img/web.svg"
                   alt="icon"
                   loading="lazy"
                   decoding="async"
@@ -573,7 +554,7 @@
               >
                 <img
                   class="cs-social-icon cs-default"
-                  src="/public/img/github.svg"
+                  src="img/github.svg"
                   alt="icon"
                   loading="lazy"
                   decoding="async"
@@ -593,7 +574,7 @@
               >
                 <img
                   class="cs-social-icon cs-default"
-                  src="/public/img/buymeacoffee.svg"
+                  src="img/buymeacoffee.svg"
                   alt="icon"
                   loading="lazy"
                   decoding="async"
@@ -613,7 +594,7 @@
               >
                 <img
                   class="cs-social-icon cs-default"
-                  src="/public/img/email.svg"
+                  src="img/email.svg"
                   alt="icon"
                   loading="lazy"
                   decoding="async"
@@ -634,18 +615,20 @@
             >
           </span>
           <div class="cs-flex">
-            <a href="/privacy-policy" class="cs-copyright-link"
+            <a href="privacy-policy.html" class="cs-copyright-link"
               >Privacy Policy</a
             >
             <span class="cs-separater">|</span>
-            <a href="/terms-of-use" class="cs-copyright-link">Terms of Use</a>
+            <a href="terms-of-use.html" class="cs-copyright-link"
+              >Terms of Use</a
+            >
           </div>
         </div>
       </div>
     </footer>
 
     <!-- Scripts -->
-    <script src="public/js/main.js" defer></script>
-    <script src="public/js/dark-mode.js" defer></script>
+    <script src="js/main.js" defer></script>
+    <script src="js/dark-mode.js" defer></script>
   </body>
 </html>
