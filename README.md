@@ -45,6 +45,14 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 The API is live at https://srilanka-holidays.vercel.app and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
+🔺 IMPORTANT: Version `v1.1.0` introduces breaking changes with partial backward compatibility.
+
+- `/api/v1/status` now requires authentication.
+
+- `/api/v1/holiday_info` now returns holidays for a given day as an array.
+
+Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holidays/releases/latest) for detailed information.
+
 ### API Features
 
 - **Holiday Lists**: Retrieve holidays for any year or filter by month and type (public, poya, mercantile, bank).
