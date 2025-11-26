@@ -70,8 +70,10 @@ api_key_header_scheme = APIKeyHeader(name="X-API-Key", auto_error=False)
 
 app = FastAPI()
 
-# Mount static files
-app.mount("/public", StaticFiles(directory="public"), name="public")
+# Mount static files on dev server
+if os.getenv("ENV") == "DEV":
+    logger.info("Mounting static files for DEV environment")
+    app.mount("/public", StaticFiles(directory="public"), name="public")
 
 # Initialize Redis client
 try:
@@ -257,34 +259,33 @@ async def get_holiday_info(year: int, month: int, day: int):
     return date_to_check, status.HTTP_200_OK, {"is_holiday": False}
 
 
-@app.get("/")
-async def root():
-    """Return home page"""
-    return FileResponse("public/index.html", media_type="text/html")
+# Resolve frontend routes only on DEV env
+if os.getenv("ENV") == "DEV":
 
+    @app.get("/")
+    async def root():
+        """Return home page"""
+        return FileResponse("public/index.html", media_type="text/html")
 
-@app.get("/favicon.ico")
-async def favicon():
-    """Serve favicon"""
-    return FileResponse("public/img/favicon.ico", media_type="image/x-icon")
+    @app.get("/favicon.ico")
+    async def favicon():
+        """Serve favicon"""
+        return FileResponse("public/img/favicon.ico", media_type="image/x-icon")
 
+    @app.get("/robots.txt")
+    async def robots():
+        """Serve robots.txt"""
+        return FileResponse("public/robots.txt", media_type="text/plain")
 
-@app.get("/robots.txt")
-async def robots():
-    """Serve robots.txt"""
-    return FileResponse("public/robots.txt", media_type="text/plain")
+    @app.get("/privacy-policy")
+    async def page_privacy_policy():
+        """Return privacy policy page"""
+        return FileResponse("public/privacy-policy.html", media_type="text/html")
 
-
-@app.get("/privacy-policy")
-async def page_privacy_policy():
-    """Return privacy policy page"""
-    return FileResponse("public/privacy-policy.html", media_type="text/html")
-
-
-@app.get("/terms-of-use")
-async def page_terms_of_use():
-    """Return terms of use page"""
-    return FileResponse("public/terms-of-use.html", media_type="text/html")
+    @app.get("/terms-of-use")
+    async def page_terms_of_use():
+        """Return terms of use page"""
+        return FileResponse("public/terms-of-use.html", media_type="text/html")
 
 
 @app.head("/api/v1/health")
