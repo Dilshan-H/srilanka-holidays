@@ -40,6 +40,7 @@ from datetime import datetime, date
 import json
 import os
 from fastapi import FastAPI, Response, status, Query, Header, HTTPException, Depends
+from fastapi.responses import RedirectResponse
 from fastapi.security import APIKeyHeader
 from fastapi.staticfiles import StaticFiles
 from starlette.responses import FileResponse
@@ -259,33 +260,13 @@ async def get_holiday_info(year: int, month: int, day: int):
     return date_to_check, status.HTTP_200_OK, {"is_holiday": False}
 
 
-# Resolve frontend routes only on DEV env
-if os.getenv("ENV") == "DEV":
+# Resolve home page on Vercel
+if os.getenv("VERCEL") == "1":
 
     @app.get("/")
-    async def root():
-        """Return home page"""
-        return FileResponse("public/index.html", media_type="text/html")
-
-    @app.get("/favicon.ico")
-    async def favicon():
-        """Serve favicon"""
-        return FileResponse("public/img/favicon.ico", media_type="image/x-icon")
-
-    @app.get("/robots.txt")
-    async def robots():
-        """Serve robots.txt"""
-        return FileResponse("public/robots.txt", media_type="text/plain")
-
-    @app.get("/privacy-policy")
-    async def page_privacy_policy():
-        """Return privacy policy page"""
-        return FileResponse("public/privacy-policy.html", media_type="text/html")
-
-    @app.get("/terms-of-use")
-    async def page_terms_of_use():
-        """Return terms of use page"""
-        return FileResponse("public/terms-of-use.html", media_type="text/html")
+    async def root_vercel():
+        """Return home page on VERCEL"""
+        return RedirectResponse(url="/index.html", status_code=307)
 
 
 @app.head("/api/v1/health")
