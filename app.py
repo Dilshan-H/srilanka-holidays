@@ -263,7 +263,7 @@ async def get_holiday_info(year: int, month: int, day: int):
 # Resolve home page on Vercel
 if os.getenv("VERCEL") == "1":
 
-    @app.get("/")
+    @app.get("/", include_in_schema=False)
     async def root_vercel():
         """Return home page on VERCEL"""
         return RedirectResponse(url="/index.html", status_code=307)
