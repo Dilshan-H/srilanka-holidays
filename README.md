@@ -181,15 +181,15 @@ This section provides tentative holiday data files, which are available for earl
 
 ### iCalendar (ics) Format
 
-|    Year     | Download Link                                                                              |
-| :---------: | ------------------------------------------------------------------------------------------ |
-|    2021     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2021.ics                      |
-|    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics                      |
-|    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics                      |
-|    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics                      |
-|    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics                      |
-|    2026     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2026.ics                      |
-| 2021 - 2026 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-26/2021-2026.ics |
+|    Year     | Download Link                                                         |
+| :---------: | --------------------------------------------------------------------- |
+|    2021     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2021.ics |
+|    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics |
+|    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics |
+|    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics |
+|    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics |
+|    2026     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2026.ics |
+| 2021 - 2026 | https://github.com/Dilshan-H/srilanka-holidays/releases/latest        |
 
 ### Other Formats
 
