@@ -9,11 +9,7 @@ URL: https://github.com/Dilshan-H/srilanka-holidays
 API endpoints:
     [Frontend]
     ------------
-    - / (home page)
-    - /favicon.ico (favicon)
-    - /robots.txt (robots.txt)
-    - /privacy-policy (privacy policy page)
-    - /terms-of-use (terms of use page)
+    - /public (home page)
 
     [API - No Auth]
     ------------
@@ -36,14 +32,15 @@ Docs:
 # pylint: disable=import-error
 from typing import Annotated, Optional
 from pathlib import Path
-from datetime import datetime, date
+from datetime import datetime, date, timezone
 import json
 import os
-from fastapi import FastAPI, Response, status, Query, Header, HTTPException, Depends
+import hashlib
+from secrets import compare_digest
+from fastapi import FastAPI, Response, status, Query, HTTPException, Depends, Header
 from fastapi.responses import RedirectResponse
 from fastapi.security import APIKeyHeader
 from fastapi.staticfiles import StaticFiles
-from starlette.responses import FileResponse
 import redis
 from dotenv import load_dotenv
 import logging
@@ -57,7 +54,7 @@ logger.info("Loading environment variables from .env file")
 load_dotenv()
 
 # Define API version
-API_VERSION = "1.1.0"
+API_VERSION = "1.1.1"
 
 # Define year limits
 YEAR_MIN = 2021
@@ -74,13 +71,16 @@ app = FastAPI()
 # Mount static files on dev server
 if os.getenv("ENV") == "DEV":
     logger.info("Mounting static files for DEV environment")
-    app.mount("/public", StaticFiles(directory="public"), name="public")
+    app.mount("/public", StaticFiles(directory="public", html=True), name="public")
 
 # Initialize Redis client
 try:
-    REDIS_CLIENT = redis.Redis.from_url(
-        os.getenv("REDIS_URL", ""),
+    REDIS_CLIENT = redis.Redis(
+        host=os.getenv("REDIS_HOST", ""),
+        port=int(os.getenv("REDIS_PORT", 0)),
         decode_responses=True,
+        username=os.getenv("REDIS_USERNAME", ""),
+        password=os.getenv("REDIS_PASSWORD", ""),
     )
     REDIS_CLIENT.ping()  # Test connection
     logger.info("Redis connection established successfully.")
@@ -98,19 +98,40 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
             detail="Missing API key. Use 'X-API-Key' header with a valid key.",
         )
 
+    # Hash the provided key for comparison
+    provided_hash = hashlib.sha256(key.encode()).hexdigest()
+
     # Check Redis if available
     if REDIS_CLIENT:
         try:
             logger.info(f"Checking API key in Redis")
-            json_data = REDIS_CLIENT.json().get("API_KEYS", Path(".api_keys"))
-            if json_data:
-                for entry in json_data:
-                    if entry.get("key") == key:  # type: ignore
-                        logger.info(f"API key validated via Redis")
-                        return key
+            json_data = REDIS_CLIENT.json().get("API_KEYS_V2", Path(".api_keys")) or []
+            for entry in json_data:
+                if not compare_digest(entry.get("hash"), provided_hash):  # type: ignore
+                    continue
+                if entry.get("active") is False:  # type: ignore
+                    logger.warning(f"API key marked as revoked in Redis")
+                    raise HTTPException(
+                        status_code=status.HTTP_401_UNAUTHORIZED,
+                        detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
+                    )
+                # Increment usage counter
+                try:
+                    utc_now = datetime.now(timezone.utc)
+                    hour_str = utc_now.strftime("%Y%m%d%H")  # 2025112814
+                    counter_key = f"usage:{provided_hash[:16]}:{hour_str}"
+
+                    pipe = REDIS_CLIENT.pipeline()
+                    pipe.incr(counter_key)
+                    pipe.expire(counter_key, 86400 * 30)
+                    pipe.execute()
+                except Exception as e:
+                    logger.error(f"Failed to log usage")
+                logger.info(f"API key validated via Redis")
+                return key
             logger.warning(f"API key not found in Redis. Possibly invalid key")
         except (redis.RedisError, ValueError, AttributeError) as e:
-            logger.error(f"Redis JSON error: {e}")
+            logger.error(f"Auth backend failed")
             pass
 
     # Fallback to environment variables
@@ -128,7 +149,7 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
     logger.warning(f"Rejecting request with invalid API key")
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
-        detail="Invalid API key. Use 'X-API-Key' header with a valid key.",
+        detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
     )
 
 

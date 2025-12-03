@@ -135,12 +135,15 @@ To test or contribute to the API, run it locally:
    (Please note that API_KEYS mention here will contain FALLBACK API KEYS just in case if REDIS fails)
 
    ```env
-   REDIS_URL=redis://default:your-password@your-redis-host:port
+   REDIS_HOST=your-redis-host.com
+   REDIS_PORT=redis-port-number
+   REDIS_PASSWORD=redis-password
+   REDIS_USERNAME=redis-username
    API_KEYS=test-key-123,prod-key-456
    ```
 
 6. Store API KEYS in REDIS
-   Use `Redis Insight` to quickly store data as JSON.
+   Use `Redis Insight` to quickly store data as JSON. Add a new KEY with JSON as the data type. Name the key as `API_KEYS_V2` (you can use other names, but remember to update it in your code as well.)
 
    ```json
    {
@@ -158,7 +161,7 @@ To test or contribute to the API, run it locally:
 7. Start app with:
 
    ```bash
-   fastapi dev main.py
+   fastapi dev app.py
    ```
 
 </details>
@@ -181,15 +184,15 @@ This section provides tentative holiday data files, which are available for earl
 
 ### iCalendar (ics) Format
 
-|    Year     | Download Link                                                                              |
-| :---------: | ------------------------------------------------------------------------------------------ |
-|    2021     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2021.ics                      |
-|    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics                      |
-|    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics                      |
-|    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics                      |
-|    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics                      |
-|    2026     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2026.ics                      |
-| 2021 - 2026 | https://github.com/Dilshan-H/srilanka-holidays/releases/download/ics-2021-26/2021-2026.ics |
+|    Year     | Download Link                                                         |
+| :---------: | --------------------------------------------------------------------- |
+|    2021     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2021.ics |
+|    2022     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2022.ics |
+|    2023     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2023.ics |
+|    2024     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2024.ics |
+|    2025     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2025.ics |
+|    2026     | https://github.com/Dilshan-H/srilanka-holidays/blob/main/ics/2026.ics |
+| 2021 - 2026 | https://github.com/Dilshan-H/srilanka-holidays/releases/latest        |
 
 ### Other Formats
 
