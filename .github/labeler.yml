@@ -29,6 +29,7 @@ srcdata:
 # Add 'api' to any changes within api
 api:
   - main.py
+  - app.py
 
 # Add 'docs' to new documentation & related files
 docs:

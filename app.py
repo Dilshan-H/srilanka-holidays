@@ -123,7 +123,7 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
 
                     pipe = REDIS_CLIENT.pipeline()
                     pipe.incr(counter_key)
-                    pipe.expire(counter_key, 86400 * 90)
+                    pipe.expire(counter_key, 86400 * 30)
                     pipe.execute()
                 except Exception as e:
                     logger.error(f"Failed to log usage")
