@@ -2,7 +2,7 @@ annotated-doc==0.0.4
 annotated-types==0.7.0
 anyio==4.10.0
 certifi==2025.11.12
-click==8.1.8
+click==8.3.1
 colorama==0.4.6
 dnspython==2.7.0
 email_validator==2.2.0
@@ -15,7 +15,7 @@ httpx==0.28.1
 icalendar==5.0.11
 idna==3.10
 Jinja2==3.1.6
-markdown-it-py==3.0.0
+markdown-it-py==4.0.0
 MarkupSafe==3.0.2
 mdurl==0.1.2
 pydantic==2.10.3
@@ -23,7 +23,7 @@ pydantic_core==2.27.1
 Pygments==2.19.2
 python-dateutil==2.8.2
 python-dotenv==1.2.1
-python-multipart==0.0.19
+python-multipart==0.0.22
 pytz==2025.2
 PyYAML==6.0.2
 redis==7.1.0
@@ -31,9 +31,9 @@ rich==13.9.4
 shellingham==1.5.4
 six==1.17.0
 sniffio==1.3.1
-starlette==0.49.1
+starlette==0.50.0
 typer==0.16.1
 typing_extensions==4.15.0
-uvicorn==0.35.0
-watchfiles==1.0.0
+uvicorn==0.38.0
+watchfiles==1.1.1
 websockets==15.0.1
