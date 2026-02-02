@@ -6,7 +6,7 @@ click==8.3.1
 colorama==0.4.6
 dnspython==2.7.0
 email_validator==2.2.0
-fastapi==0.122.0
+fastapi==0.128.0
 fastapi-cli==0.0.5
 h11==0.16.0
 httpcore==1.0.9
