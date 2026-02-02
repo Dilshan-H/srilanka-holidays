@@ -27,7 +27,7 @@ python-multipart==0.0.22
 pytz==2025.2
 PyYAML==6.0.2
 redis==7.1.0
-rich==13.9.4
+rich==14.3.2
 shellingham==1.5.4
 six==1.17.0
 sniffio==1.3.1
