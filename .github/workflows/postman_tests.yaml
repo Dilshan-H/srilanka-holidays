@@ -19,7 +19,7 @@ jobs:
         run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
       - name: Run API tests
         run: |
-          postman collection run "ID" -e "ID" \
+          postman collection run 24999655-04d83cf4-8040-4830-ba77-ce781db37fb0 -e 24999655-6151ff90-3323-4360-89ca-b7e82ef2833c \
             --env-var ci_base_url=${{ steps.vercel-preview-url.outputs.url }} \
             --env-var api_key_test=${{ secrets.API_KEY_TEST }} \
             --env-var vercel_bypass_token=${{ secrets.VERCEL_PROTECTION_BYPASS }}
