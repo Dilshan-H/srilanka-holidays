@@ -23,7 +23,7 @@ pydantic_core==2.27.1
 Pygments==2.19.2
 python-dateutil==2.8.2
 python-dotenv==1.2.1
-python-multipart==0.0.22
+python-multipart==0.0.26
 pytz==2025.2
 PyYAML==6.0.2
 redis==7.1.0
