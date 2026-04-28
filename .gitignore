@@ -172,3 +172,7 @@ email-templates/
 
 # Media
 media/
+
+# Postman Collections
+postman/
+.postman/
