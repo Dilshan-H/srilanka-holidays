@@ -1,0 +1,25 @@
+name: Automated API tests using Postman CLI
+on: pull_request
+jobs:
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Wait for Vercel Preview
+        uses: patrickedqvist/wait-for-vercel-preview@v1.3.3
+        id: vercel-preview-url
+        with:
+          token: ${{ github.token }}
+          max_timeout: 300
+          vercel_protection_bypass_header: ${{ secrets.VERCEL_PROTECTION_BYPASS }}
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+      - name: Run API tests
+        run: |
+          postman collection run 24999655-04d83cf4-8040-4830-ba77-ce781db37fb0 -e 24999655-6151ff90-3323-4360-89ca-b7e82ef2833c \
+            --env-var ci_base_url=${{ steps.vercel-preview-url.outputs.url }} \
+            --env-var api_key_test=${{ secrets.API_KEY_TEST }} \
+            --env-var vercel_bypass_token=${{ secrets.VERCEL_PROTECTION_BYPASS }}
