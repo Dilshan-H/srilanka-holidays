@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -115,8 +115,10 @@
           border: 2px solid #ff0000;
           background-color: #ffe6e6;
           border-radius: 5px;
-          animation: fadeIn 0.8s ease-out, fadeOut 0.8s ease-in 3s forwards !important;
-          animation-duration: 3s;
+          animation:
+            fadeIn 0.8s ease-out,
+            fadeOut 0.8s ease-in 5s forwards !important;
+          animation-duration: 5s;
         }
       </style>
       <div
@@ -288,13 +290,13 @@
           <p class="cs-text">
             Looking for reliable Sri Lankan holiday data? This API has you
             covered with fresh, accurate updates you can drop right into your
-            app. Bonus: it's completely open-source!
+            app. JSON, CSV, ICS, XML? - We've got you covered!
           </p>
         </div>
         <ul class="cs-card-group animate__animated animate__fadeInUp">
           <li class="cs-item">
             <img
-              class="cs-icon"
+              class="cs-icon icon-only"
               aria-hidden="true"
               loading="lazy"
               decoding="async"
@@ -312,7 +314,7 @@
           </li>
           <li class="cs-item">
             <img
-              class="cs-icon"
+              class="cs-icon icon-only"
               aria-hidden="true"
               loading="lazy"
               decoding="async"
@@ -330,7 +332,7 @@
           </li>
           <li class="cs-item">
             <img
-              class="cs-icon"
+              class="cs-icon icon-only"
               aria-hidden="true"
               loading="lazy"
               decoding="async"
@@ -374,12 +376,18 @@
               </button>
               <p tabindex="0" class="cs-item-p">
                 Fair question. Sri Lanka's holiday system is… let's say
-                “vibrant”. Between statutory holidays, poya days, ad-hoc
-                changes, and overlapping observances, things can get
-                unpredictable. This project focuses on verified data only from
-                official government sources, updated annually, structured
-                properly, and delivered in a developer-friendly format. <br />No
-                guesswork. No <i>“random blog from 2014.”</i>
+                “vibrant”. Between statutory holidays, poya days,
+                <a
+                  href="https://web.archive.org/web/20260630174627/https://www.dailymirror.lk/breaking-news/Gazette-issued-amending-Vesak-holiday/108-338642"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  ad-hoc changes</a
+                >, and overlapping observances, things can get unpredictable.
+                This project focuses on verified data only from official
+                government sources, updated annually, structured properly, and
+                delivered in a developer-friendly format. <br />No guesswork. No
+                <i>“random blog from 2014.”</i>
               </p>
             </li>
             <li class="cs-faq-item">
@@ -447,7 +455,10 @@
               <p tabindex="0" class="cs-item-p">
                 I'm glad you asked 😄 <br />
                 -
-                <a href="https://www.buymeacoffee.com/dilshanh" target="_blank"
+                <a
+                  href="https://www.buymeacoffee.com/dilshanh"
+                  target="_blank"
+                  rel="noopener"
                   >Buy me a coffee</a
                 >
                 <br />
@@ -480,6 +491,75 @@
             >
           </div>
         </div>
+      </div>
+    </section>
+
+    <!-- ============================================ -->
+    <!--           Powered Projects Section           -->
+    <!-- ============================================ -->
+
+    <section id="why-choose-289">
+      <div class="cs-container">
+        <div class="cs-content animate__animated animate__fadeInUp">
+          <div class="cs-flex">
+            <h2 class="cs-title">Powered Projects</h2>
+          </div>
+          <p class="cs-text">
+            Wondering which projects are powered by our data? Here are some
+            exciting projects that utilize our holiday information. Drop us a
+            message if you'd like to see your project featured!
+          </p>
+        </div>
+        <ul class="cs-card-group animate__animated animate__fadeInUp">
+          <a
+            href="https://sri-guide.com/?utm_source=srilanka-holidays"
+            target="_blank"
+          >
+            <li class="cs-item">
+              <img
+                class="cs-icon"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                src="img/sriguide-logo.svg"
+                alt="SriGuide project logo"
+                width="48"
+                height="48"
+              />
+              <h3 class="cs-h3">SriGuide</h3>
+              <p class="cs-item-text">
+                An open-source web app offering practical, up-to-date tips for
+                travelers in Sri Lanka. Holiday data is integrated to help users
+                plan their trips around local holidays and events.
+              </p>
+            </li>
+          </a>
+
+          <a
+            href="https://github.com/FossifyOrg/Calendar"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <li class="cs-item">
+              <img
+                class="cs-icon"
+                aria-hidden="true"
+                loading="lazy"
+                decoding="async"
+                src="img/simplecalendar-logo.svg"
+                alt="Simple Calendar project logo"
+                width="40"
+                height="48"
+              />
+              <h3 class="cs-h3">Simple Calendar</h3>
+              <p class="cs-item-text">
+                A calendar app with events, tasks, customizable colors, widgets
+                and no ads. Project has been deprecated and moved to Fossify.
+                Users can download holiday data inside app.
+              </p>
+            </li>
+          </a>
+        </ul>
       </div>
     </section>
 
@@ -606,7 +686,7 @@
             </li>
           </ul>
           <span class="cs-copyright">
-            © Copyright 2025 |
+            © Copyright 2026 |
             <a
               href="https://github.com/Dilshan-H/"
               target="_blank"
@@ -628,7 +708,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/main.js" defer></script>
-    <script src="js/dark-mode.js" defer></script>
+    <script src="js/main.min.js" defer></script>
+    <script src="js/dark-mode.min.js" defer></script>
   </body>
 </html>
