@@ -494,6 +494,24 @@ async def holidays_list(
     return {"holidays": result}
 
 
+@app.get("/privacy-policy", include_in_schema=False)
+async def privacy_policy():
+    """Redirect to privacy policy page"""
+    return RedirectResponse(url="/privacy-policy.html", status_code=307)
+
+
+@app.get("/terms-of-use", include_in_schema=False)
+async def terms_of_use():
+    """Redirect to terms of use page"""
+    return RedirectResponse(url="/terms-of-use.html", status_code=307)
+
+
+@app.get("/", include_in_schema=False)
+async def root():
+    """Redirect to home page"""
+    return RedirectResponse(url="/index.html", status_code=307)
+
+
 # Mount static files on dev server
 if os.getenv("ENV") == "DEV":
     logger.info("Mounting static files for DEV environment")
