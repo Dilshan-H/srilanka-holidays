@@ -42,6 +42,8 @@ from fastapi.responses import RedirectResponse
 from fastapi.security import APIKeyHeader
 from fastapi.staticfiles import StaticFiles
 import redis
+import redis.asyncio as redis_asyncio
+from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 import logging
 
@@ -54,39 +56,43 @@ logger.info("Loading environment variables from .env file")
 load_dotenv()
 
 # Define API version
-API_VERSION = "1.1.1"
+API_VERSION = "2.0.0"
 
 # Define year limits
 YEAR_MIN = 2021
 YEAR_MAX = 2026
 
 # Get fallback API keys from environment variables
-FALLBACK_API_KEYS = os.getenv("API_KEYS", "").split(",")
+FALLBACK_API_KEY_HASHES = os.getenv("API_KEYS", "").split(",")
+# Initialize Redis client variable
+REDIS_CLIENT = None
 
 # Define API key header for authentication
 api_key_header_scheme = APIKeyHeader(name="X-API-Key", auto_error=False)
 
-app = FastAPI()
 
-# Mount static files on dev server
-if os.getenv("ENV") == "DEV":
-    logger.info("Mounting static files for DEV environment")
-    app.mount("/public", StaticFiles(directory="public", html=True), name="public")
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    global REDIS_CLIENT
+    try:
+        REDIS_CLIENT = redis_asyncio.Redis(
+            host=os.getenv("REDIS_HOST", ""),
+            port=int(os.getenv("REDIS_PORT", 0)),
+            decode_responses=True,
+            username=os.getenv("REDIS_USERNAME", ""),
+            password=os.getenv("REDIS_PASSWORD", ""),
+        )
+        await REDIS_CLIENT.ping()
+        logger.info("Redis connection established successfully.")
+    except redis.RedisError:
+        logger.error("Failed to connect to Redis. Falling back to file reads.")
+        REDIS_CLIENT = None
+    yield
+    if REDIS_CLIENT:
+        await REDIS_CLIENT.close()
 
-# Initialize Redis client
-try:
-    REDIS_CLIENT = redis.Redis(
-        host=os.getenv("REDIS_HOST", ""),
-        port=int(os.getenv("REDIS_PORT", 0)),
-        decode_responses=True,
-        username=os.getenv("REDIS_USERNAME", ""),
-        password=os.getenv("REDIS_PASSWORD", ""),
-    )
-    REDIS_CLIENT.ping()  # Test connection
-    logger.info("Redis connection established successfully.")
-except redis.ConnectionError:
-    logger.error("Failed to connect to Redis. Falling back to file reads.")
-    REDIS_CLIENT = None
+
+app = FastAPI(lifespan=lifespan)
 
 
 async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
@@ -104,13 +110,15 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
     # Check Redis if available
     if REDIS_CLIENT:
         try:
-            logger.info(f"Checking API key in Redis")
-            json_data = REDIS_CLIENT.json().get("API_KEYS_V2", Path(".api_keys")) or []
+            logger.info("Checking API key in Redis")
+            json_data = (
+                await REDIS_CLIENT.json().get("API_KEYS_V2", Path(".api_keys")) or []
+            )
             for entry in json_data:
                 if not compare_digest(entry.get("hash"), provided_hash):  # type: ignore
                     continue
                 if entry.get("active") is False:  # type: ignore
-                    logger.warning(f"API key marked as revoked in Redis")
+                    logger.warning("API key marked as revoked in Redis")
                     raise HTTPException(
                         status_code=status.HTTP_401_UNAUTHORIZED,
                         detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
@@ -118,35 +126,40 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
                 # Increment usage counter
                 try:
                     utc_now = datetime.now(timezone.utc)
-                    hour_str = utc_now.strftime("%Y%m%d%H")  # 2025112814
+                    hour_str = utc_now.strftime("%Y%m%d%H")  # ex:2025112814
                     counter_key = f"usage:{provided_hash[:16]}:{hour_str}"
 
                     pipe = REDIS_CLIENT.pipeline()
                     pipe.incr(counter_key)
                     pipe.expire(counter_key, 86400 * 30)
-                    pipe.execute()
-                except Exception as e:
-                    logger.error(f"Failed to log usage")
-                logger.info(f"API key validated via Redis")
+                    await pipe.execute()
+                except Exception:
+                    logger.error("Failed to log usage")
+                logger.info("API key validated via Redis")
                 return key
-            logger.warning(f"API key not found in Redis. Possibly invalid key")
-        except (redis.RedisError, ValueError, AttributeError) as e:
-            logger.error(f"Auth backend failed")
+            logger.warning("API key not found in Redis. Possibly invalid key")
+        except (redis.RedisError, ValueError, AttributeError):
+            logger.error("Auth backend failed")
             pass
 
     # Fallback to environment variables
-    logger.info(f"Checking API key against fallback environment variables")
-    if not FALLBACK_API_KEYS or not any(FALLBACK_API_KEYS):
-        logger.warning(f"No fallback API keys found in environment variables")
+    logger.info("Checking API key against fallback environment variables")
+    if not FALLBACK_API_KEY_HASHES or not any(FALLBACK_API_KEY_HASHES):
+        logger.warning(
+            "Redis Failure: No fallback API keys found in environment variables"
+        )
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="No valid API keys configured. Please contact the admin.",
+            detail="Sorry, we're experiencing some issues with the authentication backend. Please try again later.",
         )
-    if key in FALLBACK_API_KEYS:
-        logger.info(f"API key validated via environment variables")
-        return key
 
-    logger.warning(f"Rejecting request with invalid API key")
+    # Check hashed keys in fallback environment variables
+    for fallback_key_hash in FALLBACK_API_KEY_HASHES:
+        if compare_digest(fallback_key_hash, provided_hash):
+            logger.info("API key validated via fallback environment variables")
+            return key
+
+    logger.warning("Rejecting request with invalid API key")
     raise HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
@@ -170,7 +183,7 @@ async def get_holiday_info(year: int, month: int, day: int):
     if REDIS_CLIENT:
         try:
             logger.info("Checking Redis cache for %s", cache_key)
-            holiday_data_cached = REDIS_CLIENT.get(cache_key)
+            holiday_data_cached = await REDIS_CLIENT.get(cache_key)
             if holiday_data_cached:
                 logger.info("Cache hit for %s in Redis", cache_key)
                 holiday_data = json.loads(holiday_data_cached)  # type: ignore
@@ -209,7 +222,9 @@ async def get_holiday_info(year: int, month: int, day: int):
                 # Cache in Redis with 24-hour TTL
                 if REDIS_CLIENT:
                     try:
-                        REDIS_CLIENT.setex(cache_key, 86400, json.dumps(holiday_data))
+                        await REDIS_CLIENT.setex(
+                            cache_key, 86400, json.dumps(holiday_data)
+                        )
                         logger.info("Cached %s in Redis", cache_key)
                     except redis.RedisError:
                         logger.error("Failed to cache %s in Redis", cache_key)
@@ -262,37 +277,47 @@ async def get_holiday_info(year: int, month: int, day: int):
             "holidays": matches,
         }
 
-        # Backwards-compatibility: if exactly one holiday, include the old top-level fields
-        if len(matches) == 1:
-            single = matches[0]
-            result.update(
-                {
-                    "id": single.get("id"),
-                    "holiday": single.get("summary"),
-                    "type": single.get("type"),
-                    "holiday_start": single.get("holiday_start"),
-                    "holiday_end": single.get("holiday_end"),
-                    "deprecated_warning": "This response structure is deprecated and will be removed in future versions. Please migrate to the new 'holidays' array format to ensure future compatibility.",
-                }
-            )
-
         return date_to_check, status.HTTP_200_OK, result
 
     return date_to_check, status.HTTP_200_OK, {"is_holiday": False}
 
 
-# Resolve home page on Vercel
-if os.getenv("VERCEL") == "1":
-
-    @app.get("/", include_in_schema=False)
-    async def root_vercel():
-        """Return home page on VERCEL"""
-        return RedirectResponse(url="/index.html", status_code=307)
-
-
 @app.head("/api/v1/health")
 async def api_health_head():
     """Return status of the API (HEAD request)"""
+    redis_healthy = False
+    if REDIS_CLIENT:
+        try:
+            await REDIS_CLIENT.ping()
+            redis_healthy = True
+        except redis.RedisError:
+            logger.warning("Health check: Redis ping failed")
+
+    # if Redis is down and fallback key count is not greater than 2
+    # Default 2 fallback keys: Dev key, Test key.
+    if not redis_healthy and not len(FALLBACK_API_KEY_HASHES) > 2:
+        logger.warning(
+            "Health check failed: Redis down and no fallback API keys configured"
+        )
+        return Response(status_code=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+    # Canary check [Known Holiday]: 2025-02-04 - Sri Lanka National Day
+    try:
+        _, status_code, result = await get_holiday_info(2025, 2, 4)
+    except Exception:
+        logger.warning(
+            "Health check failed: get_holiday_info raised an exception", exc_info=True
+        )
+        return Response(status_code=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+    if status_code != status.HTTP_200_OK or not result.get("is_holiday"):
+        logger.warning(
+            f"Health check failed: holiday API returned status={status_code}, "
+            f"is_holiday => {result.get('is_holiday') if result else None}"
+        )
+        return Response(status_code=status.HTTP_503_SERVICE_UNAVAILABLE)
+
+    logger.info("=== Health check passed ===")
     return Response(status_code=status.HTTP_200_OK)
 
 
@@ -309,7 +334,6 @@ async def api_status(
         "redis_connected": REDIS_CLIENT is not None,
         "data_store_year_min": YEAR_MIN,
         "data_store_year_max": YEAR_MAX,
-        "message": "It seems like API is up and running smoothly!",
     }
 
 
@@ -468,3 +492,9 @@ async def holidays_list(
             continue  # Skip holidays with invalid data
     response.status_code = status.HTTP_200_OK
     return {"holidays": result}
+
+
+# Mount static files on dev server
+if os.getenv("ENV") == "DEV":
+    logger.info("Mounting static files for DEV environment")
+    app.mount("/", StaticFiles(directory="public", html=True), name="public")

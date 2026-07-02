@@ -1,0 +1,13 @@
+{
+  "python.terminal.useEnvFile": true,
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.black-formatter",
+  },
+  "[html]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "[css]":{
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+  },
+  "editor.formatOnSave": true,
+}
