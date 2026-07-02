@@ -5,7 +5,7 @@
 
 User-agent: *
 Allow: /
-Allow: /public/index.html
+Allow: /index
 Allow: /privacy-policy
 Allow: /terms-of-use
 

@@ -25,11 +25,14 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 ## Powered Projects
 
-| Project/App                                                             | Description                                                                    |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------ |
-| [Simple-Calendar](https://github.com/SimpleMobileTools/Simple-Calendar) | A simple calendar with events, tasks, customizable colors, widgets and no ads. |
+| Project/App                                                             | Description                                                                        |
+| ----------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| [Simple-Calendar](https://github.com/SimpleMobileTools/Simple-Calendar) | A simple calendar with events, tasks, customizable colors, widgets and no ads.     |
+| [SriGuide](https://sri-guide.com/?utm_source=srilanka-holidays)         | Open-source web app offering practical, up-to-date tips for travelers in Sri Lanka |
 
 \*Simple-Calendar has been deprecated and moved to **Fossify**: https://github.com/FossifyOrg/Calendar
+
+Add your project/app here? [Contact us](https://srilanka-holidays.vercel.app).
 
 ## Why use this API/Data?
 
@@ -41,17 +44,17 @@ Holidays are updated every year and currently contains holidays starting from 20
 
 ## API
 
-![Uptime Robot status](https://img.shields.io/uptimerobot/status/m801863984-21c7b9399c6e347151e59c53?up_message=Operational&down_message=Unavailable&style=for-the-badge&logo=supabase&logoColor=green&label=API%20Status)
+[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m801863984-21c7b9399c6e347151e59c53?up_message=Operational&down_message=Unavailable&style=for-the-badge&logo=supabase&logoColor=green&label=API%20Status)](https://stats.uptimerobot.com/BeKEyRHmwX/801863984)
 
 The API is live at https://srilanka-holidays.vercel.app and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
-🔺 IMPORTANT: Version `v1.1.0` introduces breaking changes with partial backward compatibility.
-
-- `/api/v1/status` now requires authentication.
-
-- `/api/v1/holiday_info` now returns holidays for a given day as an array.
-
-Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holidays/releases/latest) for detailed information.
+> [!WARNING]
+> Version `v2.0.0` introduces breaking changes. Backward compatibility from previous `v1.1.0` version has been removed.
+>
+> - `/api/v1/status` now requires authentication.
+> - `/api/v1/holiday_info` now returns holidays for a given day as an array.
+>
+> Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holidays/releases/latest) for detailed information.
 
 ### API Features
 
@@ -65,13 +68,11 @@ Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holida
 ### Using the Public API
 
 1. **Obtain an API Key**:
-
    - Contact us to [request a free API key](https://srilanka-holidays.vercel.app)
    - Include your key in every request: `X-API-Key: your-key`.
 
 2. **Explore Endpoints**:
-
-   - **List Holidays**: `GET /api/v1/holidays?year=2025` (optional: `month`, `type`, `format=simple|full`)
+   - **List Holidays**: `GET /api/v1/holidays?year=2025` (optional: `month`, `type`, `format=simple/full`)
 
      Example:
 
@@ -88,7 +89,6 @@ Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holida
      ```
 
 3. **Read the Docs**:
-
    - Visit https://srilanka-holidays.vercel.app/docs for interactive Swagger UI or https://srilanka-holidays.vercel.app/redoc for ReDoc.
 
 4. **Homepage**:
@@ -132,15 +132,18 @@ To test or contribute to the API, run it locally:
 5. **Configure Environment Variables**:
 
    Create a .env file with your variables.
-   (Please note that API_KEYS mention here will contain FALLBACK API KEYS just in case if REDIS fails)
 
    ```env
    REDIS_HOST=your-redis-host.com
    REDIS_PORT=redis-port-number
    REDIS_PASSWORD=redis-password
    REDIS_USERNAME=redis-username
-   API_KEYS=test-key-123,prod-key-456
+   API_KEYS=backup-key-hash-1,backup-key-hash-2,...
+   ENV=DEV
    ```
+
+   > [!NOTE]
+   > `API_KEYS` is used as the backup key store in case of Redis authentication method failure. Only hashed keys should go in here as a comma-separated list. `ENV` must be set to `DEV` only on local development setups.
 
 6. Store API KEYS in REDIS
    Use `Redis Insight` to quickly store data as JSON. Add a new KEY with JSON as the data type. Name the key as `API_KEYS_V2` (you can use other names, but remember to update it in your code as well.)
@@ -152,11 +155,22 @@ To test or contribute to the API, run it locally:
          "key": "API_KEY",
          "created": 1749841807,
          "username": "USERNAME",
-         "description": "DESCRIPTION"
+         "description": "DESCRIPTION",
+         "other-keys-you-need": "key-data"
        }
      ]
    }
    ```
+
+   > [!NOTE]
+   > All API keys must be properly hashed. You can use a Python script like this to generate hashed keys.
+   >
+   > ```py
+   > import hashlib
+   > real_key = "your-new-API-Key"
+   > key_hash = hashlib.sha256(real_key.encode()).hexdigest()
+   > print(key_hash)
+   > ```
 
 7. Start app with:
 
@@ -165,6 +179,9 @@ To test or contribute to the API, run it locally:
    ```
 
 </details>
+
+> [!NOTE]
+> Please note that the API key management system and statistics dashboard are private internal components and are not publicly available on this repository.
 
 ## Direct Downloadable Files
 
@@ -178,9 +195,11 @@ This section provides tentative holiday data files, which are available for earl
 
   Upcoming data will be posted here after verification.
 
-  > Notes: [Additional details/comments]
+  https://github.com/Dilshan-H/srilanka-holidays/Tentative-Holiday-Data/2027-Tentative.ics
 
-  > Source: [Data sources]
+  > Notes: Mercantile Holiday values are estimated from earlier holiday data and should not be considered confirmed.
+
+  > **Source**: The Gazette of the Democratic Socialist Republic of Sri Lanka, Government Notifications: No. 2493/05 - Tuesday, June 16, 2026
 
 ### iCalendar (ics) Format
 

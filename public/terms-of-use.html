@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -116,7 +116,9 @@
           border: 2px solid #ff0000;
           background-color: #ffe6e6;
           border-radius: 5px;
-          animation: fadeIn 0.8s ease-out, fadeOut 0.8s ease-in 3s forwards !important;
+          animation:
+            fadeIn 0.8s ease-out,
+            fadeOut 0.8s ease-in 3s forwards !important;
           animation-duration: 3s;
         }
       </style>
@@ -217,7 +219,7 @@
         style="padding: clamp(3rem, 4.9vw, 4rem) clamp(2.5rem, 10vw, 8.5rem)"
       >
         <h1 class="cs-title">Terms of Use</h1>
-        <p class="cs-text">Last updated: November 2025</p>
+        <p class="cs-text">Last updated: <em>2026.07.01</em></p>
         <hr />
 
         <div>
@@ -289,7 +291,11 @@
           <p class="text" style="margin-top: 1rem">
             We reserve the right to revoke or suspend any API key without prior
             notice in cases of clear abuse (e.g., excessive requests, attempts
-            to bypass rate limits, or unauthorized scraping).
+            to bypass rate limits, or unauthorized scraping). In the event of
+            abuse or suspicious activity, first we may temporarily block the
+            associated API key and notify the user via the registered email
+            address. Continuing abuse may result in permanent revocation of the
+            API key and the user being barred from future access to the API.
           </p>
         </div>
 
@@ -432,7 +438,7 @@
             </li>
           </ul>
           <span class="cs-copyright">
-            © Copyright 2025 |
+            © Copyright 2026 |
             <a
               href="https://github.com/Dilshan-H/"
               target="_blank"
@@ -454,7 +460,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/main.js" defer></script>
-    <script src="js/dark-mode.js" defer></script>
+    <script src="js/main.min.js" defer></script>
+    <script src="js/dark-mode.min.js" defer></script>
   </body>
 </html>

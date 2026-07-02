@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -120,7 +120,9 @@
           border: 2px solid #ff0000;
           background-color: #ffe6e6;
           border-radius: 5px;
-          animation: fadeIn 0.8s ease-out, fadeOut 0.8s ease-in 3s forwards !important;
+          animation:
+            fadeIn 0.8s ease-out,
+            fadeOut 0.8s ease-in 3s forwards !important;
           animation-duration: 3s;
         }
       </style>
@@ -222,7 +224,7 @@
       >
         <h1 class="cs-title">Privacy Policy</h1>
 
-        <p class="cs-text">Last updated: November 2025</p>
+        <p class="cs-text">Last updated: <em>2026.07.01</em></p>
         <hr />
         <h2 class="cs-topper" style="margin-top: 2.5rem">
           Ultra-short version
@@ -247,9 +249,9 @@
             <strong>Actually using the API:</strong>
             We don't log your IP, we don't log which endpoints you call, and we
             definitely don't care how long you stared at the JSON. Successful
-            requests = nothing stored. Failed/abuse-level requests = temporary
-            IP block (that's it) enforced by Vercel Firewall and DDoS
-            protection.
+            requests with valid API keys = hourly count of requests per key
+            saved in Redis, Failed/abuse-level requests = temporary IP block
+            enforced by Vercel Firewall and DDoS protection.
           </li>
           <li>
             We don't use Google Analytics, Vercel Analytics, Plausible, or any
@@ -299,10 +301,39 @@
         </p>
 
         <p class="text">
-          We only log the minimum required to protect the service from abuse
-          (typically IP address and timestamp in case of excessive requests or
-          attacks). These logs are retained only temporarily and are
-          automatically deleted shortly after.
+          When you request an API key, we store your <b>email address</b>, the
+          <b>name</b>
+          associated with that email account, along with other system-generated
+          data (such as the API key itself), in a private Redis instance hosted
+          within the European Union (EU). Both the email address and name are
+          encrypted before storage using the Fernet encryption scheme, which
+          provides authenticated encryption based on AES-128 and HMAC-SHA256.
+          Encryption keys are securely managed and are not accessible to
+          unauthorized parties.
+        </p>
+        <p class="text">
+          We do not share, sell, or rent your personal information to third
+          parties. Your <b>email address</b> and <b>name</b> are used solely for
+          the purpose of managing your API key, providing you with access to the
+          API, and maintain communication regarding the service. We do not use
+          this information for marketing purposes or any other unrelated
+          activities.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">
+          Abuse Prevention Measures
+        </h2>
+        <p class="text">
+          We take measures to prevent abuse of our API, including monitoring for
+          suspicious activity and implementing rate limits to ensure fair usage.
+          As part of these measures, all authenticated requests to the API
+          increment a counter in Redis associated with the API key. This counter
+          is used solely for monitoring usage and enforcing rate limits. We do
+          not log the specific endpoints accessed or the content of the
+          requests. These counters are temporarily stored and automatically
+          reset after a 30-day period. In the event of abuse or suspicious
+          activity, we may temporarily block the associated API key and notify
+          the user via the registered email address.
         </p>
 
         <h2 class="cs-topper" style="margin-top: 2.5rem">Use of Cookies</h2>
@@ -311,6 +342,25 @@
           cookies that may be set are essential for basic functionality, such as
           session management for the dark mode toggle. These cookies do not
           track your browsing behavior.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">
+          Third-Party Links and Services
+        </h2>
+        <p class="text">
+          Our website may contain links to third-party websites or services. We
+          are not responsible for the privacy practices of these third parties.
+          We encourage you to review the privacy policies of any third-party
+          websites you visit.
+        </p>
+
+        <h2 class="cs-topper" style="margin-top: 2.5rem">Children's Privacy</h2>
+        <p class="text">
+          Our services are not directed to individuals under the age of 16, and
+          we do not knowingly collect personal information from children. If we
+          become aware that we have inadvertently collected personal information
+          from a child under 16, we will take steps to delete such information
+          promptly.
         </p>
 
         <h2 class="cs-topper" style="margin-top: 2.5rem">Your Rights</h2>
@@ -463,7 +513,7 @@
             </li>
           </ul>
           <span class="cs-copyright">
-            © Copyright 2025 |
+            © Copyright 2026 |
             <a
               href="https://github.com/Dilshan-H/"
               target="_blank"
@@ -485,7 +535,7 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="js/main.js" defer></script>
-    <script src="js/dark-mode.js" defer></script>
+    <script src="js/main.min.js" defer></script>
+    <script src="js/dark-mode.min.js" defer></script>
   </body>
 </html>
