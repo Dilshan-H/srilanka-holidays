@@ -230,7 +230,7 @@ If you're unable to download individual files, please visit the releases page [h
 All the data is collected from verified and reliable sources within the Sri Lankan government. This usually involves the Ministry of Home Affairs, Department of Government Printing and the Gazette papers.
 
 - State Ministry of Home Affairs, Sri Lanka - https://moha.gov.lk/
-- Department of Government Printing, Sri Lanka - http://www.documents.gov.lk/
+- Department of Government Printing, Sri Lanka - https://www.documents.gov.lk/
 
 ## Holiday Categorization
 
@@ -256,3 +256,16 @@ Fork the repository, make your changes and submit a pull request. It's that much
 **The MIT License**
 
 This program is free software: you can redistribute it and/or modify it under the terms of the MIT License. See the [LICENSE](LICENSE) file for more details. Attribution is required by leaving the author name and license info intact.
+
+## Citation
+
+If these data files or this API are used in your project or research, please consider citing it as
+
+```bibtex
+@software{dilshan2023slhapi,
+  author = {Dilshan-H},
+  title  = {SLHAPI: Sri Lanka Holidays API and Data},
+  year   = {2023},
+  url    = {https://github.com/Dilshan-H/srilanka-holidays}
+}
+```
