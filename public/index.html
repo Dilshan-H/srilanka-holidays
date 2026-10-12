@@ -71,6 +71,7 @@
     <link href="css/core.min.css" rel="stylesheet" />
     <link href="css/styles.min.css" rel="stylesheet" />
     <link href="css/dark-mode.min.css" rel="stylesheet" />
+    <link href="css/key-form.css" rel="stylesheet" />
 
     <style>
       /* Font Styles */
@@ -483,12 +484,209 @@
           </ul>
           <div class="cs-cta">
             <h3 class="cs-h3">Ready to get started?</h3>
-            <p tabindex="0" class="cs-cta-p">
-              Drop us an email and we'll send you that free API key right away!
+            <form class="apikey-form" data-veloz-form="slh-apikey">
+              <div class="field">
+                <label for="cb-name">Name</label>
+                <input
+                  id="cb-name"
+                  name="name"
+                  placeholder="Your full name"
+                  required
+                  maxlength="100"
+                  autocomplete="name"
+                  autocapitalize="words"
+                />
+                <span class="err" data-error-for="name"></span>
+              </div>
+
+              <div class="field">
+                <label for="cb-email">Email</label>
+                <input
+                  id="cb-email"
+                  name="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  required
+                  maxlength="254"
+                  autocomplete="email"
+                  spellcheck="false"
+                />
+                <span class="err" data-error-for="email"></span>
+              </div>
+
+              <div class="field">
+                <label for="cb-channel">How did you find us?</label>
+                <select
+                  id="cb-channel"
+                  name="channel"
+                  required
+                  autocomplete="off"
+                >
+                  <option value="" disabled selected>Select an option</option>
+                  <option value="Web-Search">Web Search</option>
+                  <option value="GitHub">GitHub</option>
+                  <option value="Friend-Family">Friend/family</option>
+                  <option value="LLMs">LLMs (ChatGPT, Claude, etc.)</option>
+                  <option value="Social-Media">Social Media</option>
+                  <option value="Other">Other</option>
+                </select>
+                <span class="err" data-error-for="channel"></span>
+              </div>
+
+              <div class="_cont_box_ref" aria-hidden="true">
+                <input name="_cont_box_ref" tabindex="-1" autocomplete="off" />
+              </div>
+
+              <div
+                class="cf-turnstile"
+                data-sitekey="0x4AAAAAAFK09zqBOGMED8MV"
+              ></div>
+
+              <button type="submit" class="cs-button-solid request-button">
+                SUBMIT
+              </button>
+
+              <p
+                class="status"
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+              ></p>
+            </form>
+            <p class="cs-cta-text">
+              By submitting this form, you agree to our
+              <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+              and
+              <a href="terms-of-use.html" target="_blank">Terms of Use</a>. We
+              will use your information solely for the purpose of providing you
+              with an API key and related communications. You can unsubscribe at
+              any time.
             </p>
-            <a href="mailto:halt-pledge-paper@duck.com" class="cs-button-solid"
-              >Contact us</a
-            >
+
+            <script>
+              // Veloz endpoint domain.
+              const ENDPOINT = "https://veloz.sri-guide.com/send";
+
+              const MESSAGES = {
+                captcha: "Verification failed. Please try again.",
+                validation: "Please check the highlighted fields.",
+                rate_limited: "Too many attempts. Please wait a few minutes.",
+                forbidden: "This form is not allowed to send messages.",
+                unknown_form: "This form is not allowed to send messages.",
+                server:
+                  "Something went wrong on our side. Please try again later.",
+              };
+
+              document
+                .querySelectorAll("form[data-veloz-form]")
+                .forEach((form) => {
+                  const status = form.querySelector(".status");
+                  const button = form.querySelector('button[type="submit"]');
+
+                  form.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    form
+                      .querySelectorAll("[data-error-for]")
+                      .forEach((el) => (el.textContent = ""));
+
+                    const fd = new FormData(form);
+                    const token = fd.get("cf-turnstile-response");
+                    if (!token) {
+                      showStatus(
+                        form,
+                        "Please complete the verification.",
+                        "error",
+                      );
+                      return;
+                    }
+
+                    const fields = {};
+                    for (const [key, value] of fd.entries()) {
+                      if (
+                        typeof value === "string" &&
+                        key !== "_cont_box_ref" &&
+                        key !== "cf-turnstile-response"
+                      ) {
+                        fields[key] = value;
+                      }
+                    }
+
+                    button.disabled = true;
+                    showStatus(form, "Sending…", "info");
+                    let resetChallenge = true;
+
+                    try {
+                      const res = await fetch(ENDPOINT, {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                          form: form.dataset.velozForm,
+                          token,
+                          hp: fd.get("_cont_box_ref") || "",
+                          fields,
+                        }),
+                      });
+                      const data = await res.json().catch(() => ({}));
+
+                      if (res.ok && data.ok) {
+                        form.reset();
+                        showStatus(
+                          form,
+                          "Thanks! Your message was sent.",
+                          "success",
+                        );
+                      } else {
+                        showStatus(
+                          form,
+                          MESSAGES[data.error] || MESSAGES.server,
+                          "error",
+                        );
+
+                        for (const [key, msg] of Object.entries(
+                          data.fields || {},
+                        )) {
+                          const el = form.querySelector(
+                            `[data-error-for="${CSS.escape(key)}"]`,
+                          );
+                          if (el) el.textContent = msg;
+                        }
+                        // Validation errors don't consume the Turnstile token, so keep it.
+                        if (data.error === "validation") resetChallenge = false;
+                      }
+                    } catch {
+                      showStatus(
+                        form,
+                        "Network error. Please try again.",
+                        "error",
+                      );
+                    } finally {
+                      button.disabled = false;
+                      if (resetChallenge && window.turnstile) {
+                        turnstile.reset(form.querySelector(".cf-turnstile"));
+                      }
+                    }
+                  });
+                });
+
+              function showStatus(form, message, type = "info") {
+                const el = form.querySelector(".status");
+                if (!el) return;
+                el.textContent = message;
+                el.className = `status is-${type}`; // info | success | error
+                if (type === "info") return;
+
+                void el.offsetWidth; // restart the pulse animation
+                el.classList.add("flash");
+                const calm = matchMedia(
+                  "(prefers-reduced-motion: reduce)",
+                ).matches;
+                el.scrollIntoView({
+                  behavior: calm ? "auto" : "smooth",
+                  block: "nearest",
+                });
+                el.focus({ preventScroll: true });
+              }
+            </script>
           </div>
         </div>
       </div>
@@ -710,5 +908,10 @@
     <!-- Scripts -->
     <script src="js/main.min.js" defer></script>
     <script src="js/dark-mode.min.js" defer></script>
+    <script
+      src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+      async
+      defer
+    ></script>
   </body>
 </html>

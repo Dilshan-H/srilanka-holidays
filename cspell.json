@@ -43,7 +43,9 @@
     "venv",
     "VERCEL",
     "Vesak",
-    "VEVENT"
+    "VEVENT",
+    "hget",
+    "hincrby"
   ],
   "ignoreWords": [],
   "import": []

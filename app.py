@@ -30,22 +30,23 @@ Docs:
 """
 
 # pylint: disable=import-error
-from typing import Annotated, Optional
-from pathlib import Path
-from datetime import datetime, date, timezone
-import json
-import os
 import hashlib
+import json
+import logging
+import os
+from contextlib import asynccontextmanager
+from datetime import date, datetime, timezone
+from pathlib import Path
 from secrets import compare_digest
-from fastapi import FastAPI, Response, status, Query, HTTPException, Depends, Header
+from typing import Annotated, Optional
+
+import redis
+import redis.asyncio as redis_asyncio
+from dotenv import load_dotenv
+from fastapi import Depends, FastAPI, HTTPException, Query, Request, Response, status
 from fastapi.responses import RedirectResponse
 from fastapi.security import APIKeyHeader
 from fastapi.staticfiles import StaticFiles
-import redis
-import redis.asyncio as redis_asyncio
-from contextlib import asynccontextmanager
-from dotenv import load_dotenv
-import logging
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -56,7 +57,7 @@ logger.info("Loading environment variables from .env file")
 load_dotenv()
 
 # Define API version
-API_VERSION = "2.0.0"
+API_VERSION = "2.0.1"
 
 # Define year limits
 YEAR_MIN = 2021
@@ -66,6 +67,8 @@ YEAR_MAX = 2026
 FALLBACK_API_KEY_HASHES = os.getenv("API_KEYS", "").split(",")
 # Initialize Redis client variable
 REDIS_CLIENT = None
+# Key usage TTL - 30D
+USAGE_TTL = 30 * 86400
 
 # Define API key header for authentication
 api_key_header_scheme = APIKeyHeader(name="X-API-Key", auto_error=False)
@@ -95,8 +98,10 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 
-async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
-    """Validate API key from Redis or fallback environment variables"""
+async def verify_api_key(
+    request: Request, key: Optional[str] = Depends(api_key_header_scheme)
+):
+    """Validate API key from Redis (V3) or fallback environment variables"""
     if not key:
         logger.warning("API key is missing in the request")
         raise HTTPException(
@@ -105,59 +110,61 @@ async def verify_api_key(key: Optional[str] = Depends(api_key_header_scheme)):
         )
 
     # Hash the provided key for comparison
-    provided_hash = hashlib.sha256(key.encode()).hexdigest()
+    key_hash = hashlib.sha256(key.encode()).hexdigest()
 
     # Check Redis if available
+    redis_healthy = 0
+    state = None
     if REDIS_CLIENT:
         try:
-            logger.info("Checking API key in Redis")
-            json_data = (
-                await REDIS_CLIENT.json().get("API_KEYS_V2", Path(".api_keys")) or []
-            )
-            for entry in json_data:
-                if not compare_digest(entry.get("hash"), provided_hash):  # type: ignore
-                    continue
-                if entry.get("active") is False:  # type: ignore
-                    logger.warning("API key marked as revoked in Redis")
-                    raise HTTPException(
-                        status_code=status.HTTP_401_UNAUTHORIZED,
-                        detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
-                    )
-                # Increment usage counter
-                try:
-                    utc_now = datetime.now(timezone.utc)
-                    hour_str = utc_now.strftime("%Y%m%d%H")  # ex:2025112814
-                    counter_key = f"usage:{provided_hash[:16]}:{hour_str}"
-
-                    pipe = REDIS_CLIENT.pipeline()
-                    pipe.incr(counter_key)
-                    pipe.expire(counter_key, 86400 * 30)
-                    await pipe.execute()
-                except Exception:
-                    logger.error("Failed to log usage")
-                logger.info("API key validated via Redis")
-                return key
-            logger.warning("API key not found in Redis. Possibly invalid key")
-        except (redis.RedisError, ValueError, AttributeError):
+            state = await REDIS_CLIENT.hget(f"v3:key:{key_hash}", "active")
+            redis_healthy = 1
+        except Exception:
             logger.error("Auth backend failed")
-            pass
 
-    # Fallback to environment variables
-    logger.info("Checking API key against fallback environment variables")
-    if not FALLBACK_API_KEY_HASHES or not any(FALLBACK_API_KEY_HASHES):
-        logger.warning(
-            "Redis Failure: No fallback API keys found in environment variables"
-        )
+    # Handle Redis response
+    if isinstance(state, bytes):
+        state = state.decode()
+    if state == "1":
+        try:
+            # Route TEMPLATE (e.g. /items/{id}), never the raw path, so IDs can't explode the field count.
+            route = getattr(request.scope.get("route"), "path", None) or "unknown"
+            day_key = f"v3:usage:d:{datetime.now(timezone.utc):%Y%m%d}"
+            pipe = REDIS_CLIENT.pipeline(transaction=False)
+            pipe.hincrby(day_key, f"{key_hash[:16]}:{route[:80]}", 1)
+            pipe.expire(day_key, USAGE_TTL)
+            await pipe.execute()
+        except Exception:
+            logger.error("Failed to log usage")
+        return key
+
+    if state == "0":
+        logger.warning("API key is suspended or revoked")
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Sorry, we're experiencing some issues with the authentication backend. Please try again later.",
+            detail="Invalid or revoked API key. Use 'X-API-Key' header with a valid key.",
         )
 
-    # Check hashed keys in fallback environment variables
-    for fallback_key_hash in FALLBACK_API_KEY_HASHES:
-        if compare_digest(fallback_key_hash, provided_hash):
-            logger.info("API key validated via fallback environment variables")
-            return key
+    # Emergency fallback setup with environment variables
+    if not REDIS_CLIENT or redis_healthy == 0:
+        logger.warning(
+            "Redis is unavailable, using fallback environment variables for API key validation"
+        )
+        # if no fallback keys OR fallback keys count is less than 3
+        if not FALLBACK_API_KEY_HASHES or len(FALLBACK_API_KEY_HASHES) < 3:
+            logger.warning(
+                "Redis Failure: No fallback API keys found in environment variables"
+            )
+            raise HTTPException(
+                status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+                detail="Sorry, we're experiencing some issues with the authentication backend. Please try again later.",
+            )
+
+        # Check hashed keys in fallback environment variables
+        for fallback_key_hash in FALLBACK_API_KEY_HASHES:
+            if compare_digest(fallback_key_hash, key_hash):
+                logger.info("API key validated via fallback environment variables")
+                return key
 
     logger.warning("Rejecting request with invalid API key")
     raise HTTPException(
@@ -290,7 +297,7 @@ async def api_health_head():
         try:
             await REDIS_CLIENT.ping()
             redis_healthy = True
-        except redis.RedisError:
+        except Exception:
             logger.warning("Health check: Redis ping failed")
 
     # if Redis is down and fallback key count is not greater than 2
