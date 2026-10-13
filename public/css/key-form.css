@@ -8,11 +8,7 @@
   width: 100%;
   cursor: pointer;
 }
-.cs-cta {
-  padding: 2.5rem 3rem !important;
-  width: 45% !important;
-  max-width: unset !important;
-}
+
 .cs-cta-text {
   font-size: 0.7rem;
 }
@@ -77,8 +73,11 @@ select[aria-invalid="true"]:focus {
 .err {
   display: block;
   margin-top: 0.35rem;
-  color: #b00020;
+  color: #cc0a00;
   font-size: 0.85rem;
+}
+body.dark-mode .err {
+  color: #ff531e;
 }
 .err:empty {
   display: none;
