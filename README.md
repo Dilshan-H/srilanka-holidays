@@ -36,25 +36,27 @@ Add your project/app here? [Contact us](https://srilanka-holidays.vercel.app).
 
 ## Why use this API/Data?
 
+Generic holiday libraries often struggle to provide accurate Sri Lankan holiday information due to limited country-specific support, lunar-based observances, and changes introduced through official announcements. This project maintains verified data throughout years, ensuring that developers and users have access to reliable holiday information.
+
+Just a couple more reasons:
+
 - Reliable and accurate local data (see [Data Sources](#data-sources))
 - Open-source and free to use
-- Updated every year
-- Available as both API and downloadable files
-- Holiday categorizations (Public, Bank, Mercantile, Poya, etc.)
+- Updated every year or when holiday changes are announced
+- Available as both API and downloadable files [XML, JSON, CSV, ICS]
+- Holiday categorizations (Public, Bank, Mercantile, Poya)
 
 ## API
 
-[![Uptime Robot status](https://img.shields.io/uptimerobot/status/m801863984-21c7b9399c6e347151e59c53?up_message=Operational&down_message=Unavailable&style=for-the-badge&logo=supabase&logoColor=green&label=API%20Status)](https://stats.uptimerobot.com/BeKEyRHmwX/801863984)
+| Service         	| Status                                                                                  	|
+|-----------------	|-----------------------------------------------------------------------------------------	|
+| API             	| ![Cron job status](https://api.cron-job.org/jobs/8642056/c28a42b23c352e04/status-0.svg) 	|
+| Admin Backend   	| ![Cron job status](https://api.cron-job.org/jobs/8638659/83d7697c7c985c0a/status-0.svg) 	|
+| Veloz Connector 	| ![Cron job status](https://api.cron-job.org/jobs/8641700/b11f544bf24ffe45/status-0.svg) 	|
 
-The API is live at https://srilanka-holidays.vercel.app and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
-> [!WARNING]
-> Version `v2.0.0` introduces breaking changes. Backward compatibility from previous `v1.1.0` version has been removed.
->
-> - `/api/v1/status` now requires authentication.
-> - `/api/v1/holiday_info` now returns holidays for a given day as an array.
->
-> Please refer to the [release notes](https://github.com/Dilshan-H/srilanka-holidays/releases/latest) for detailed information.
+
+The API is live at https://holidays.sri-guide.com and ready for public use! Built with [FastAPI](https://fastapi.tiangolo.com/), it offers a modern, developer-friendly experience with robust features.
 
 ### API Features
 
@@ -68,7 +70,7 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
 ### Using the Public API
 
 1. **Obtain an API Key**:
-   - Contact us to [request a free API key](https://srilanka-holidays.vercel.app)
+   - Contact us to [request a free API key](https://holidays.sri-guide.com)
    - Include your key in every request: `X-API-Key: your-key`.
 
 2. **Explore Endpoints**:
@@ -77,7 +79,7 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
      Example:
 
      ```curl
-     curl -H "X-API-Key: your-key" https://srilanka-holidays.vercel.app/api/v1/holidays?year=2025
+     curl -H "X-API-Key: your-key" https://holidays.sri-guide.com/api/v1/holidays?year=2025
      ```
 
    - **Check Date**: `GET /api/v1/check_holiday?year=2025&month=5&day=1`
@@ -85,14 +87,14 @@ The API is live at https://srilanka-holidays.vercel.app and ready for public use
      Example:
 
      ```curl
-     `curl -H "X-API-Key: your-key" srilanka-holidays.vercel.app/api/v1/check_holiday?year=2025&month=5&day=1
+     `curl -H "X-API-Key: your-key" https://holidays.sri-guide.com/api/v1/check_holiday?year=2025&month=5&day=1
      ```
 
 3. **Read the Docs**:
-   - Visit https://srilanka-holidays.vercel.app/docs for interactive Swagger UI or https://srilanka-holidays.vercel.app/redoc for ReDoc.
+   - Visit https://holidays.sri-guide.com/docs for interactive Swagger UI or https://srilanka-holidays.vercel.app/redoc for ReDoc.
 
-4. **Homepage**:
-   - Check out https://srilanka-holidays.vercel.app for an overview and request a free API key.
+4. **Use Caching in Your App**:
+   - Since holiday data is updated less frequently, consider caching responses in your application to reduce API calls and improve performance.
 
 ### Running & Testing API Locally
 
@@ -142,35 +144,56 @@ To test or contribute to the API, run it locally:
    ENV=DEV
    ```
 
-   > [!NOTE]
    > `API_KEYS` is used as the backup key store in case of Redis authentication method failure. Only hashed keys should go in here as a comma-separated list. `ENV` must be set to `DEV` only on local development setups.
 
 6. Store API KEYS in REDIS
-   Use `Redis Insight` to quickly store data as JSON. Add a new KEY with JSON as the data type. Name the key as `API_KEYS_V2` (you can use other names, but remember to update it in your code as well.)
+   
+   The API uses Redis for API key validation, usage counters, and a holiday cache. Use `Redis Insight` or the Redis CLI to store the API keys.
 
-   ```json
-   {
-     "api_keys": [
-       {
-         "key": "API_KEY",
-         "created": 1749841807,
-         "username": "USERNAME",
-         "description": "DESCRIPTION",
-         "other-keys-you-need": "key-data"
-       }
-     ]
-   }
-   ```
+   1. API keys
 
-   > [!NOTE]
-   > All API keys must be properly hashed. You can use a Python script like this to generate hashed keys.
-   >
-   > ```py
-   > import hashlib
-   > real_key = "your-new-API-Key"
-   > key_hash = hashlib.sha256(real_key.encode()).hexdigest()
-   > print(key_hash)
-   > ```
+      Each key is a Redis hash named after the SHA-256 hex digest of the key. The plaintext key is never stored.
+
+      ```bash
+      v3:key:<sha256_hex_of_api_key>
+      active = "1"    # valid
+               "0"    # revoked/suspended
+      ```
+
+      > All API keys must be properly hashed. Otherwise, the API will not recognize them.
+
+      If you are using Redis CLI, you can set the key like this:
+
+      ```bash
+      KEY="your-secret-api-key"
+      HASH=$(printf '%s' "$KEY" | sha256sum | cut -d' ' -f1)
+      redis-cli HSET "v3:key:$HASH" active 1
+      ```
+
+      Revoke a key by setting `active` to `0`.
+
+      ```bash
+      redis-cli HSET "v3:key:$HASH" active 0
+      ```
+
+   2. Usage counters (written automatically)
+
+      The API automatically tracks usage counts for each key in Redis. You do not need to set these manually.
+
+      ```bash
+      v3:usage:d:<YYYYMMDD>
+      <first 16 chars of key hash>:<route template>  ->  request count
+      ```
+
+   3. Holiday cache (written automatically)
+
+      The API caches holiday data in Redis for faster responses. You do not need to set these manually.
+
+      ```bash
+      holidays:<year> # string containing JSON for that year's holidays
+      ```
+
+
 
 7. Start app with:
 
