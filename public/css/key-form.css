@@ -1,0 +1,133 @@
+.apikey-form {
+  width: 100%;
+  flex: 1;
+  text-align: left;
+}
+
+.cs-button-solid.request-button {
+  width: 100%;
+  cursor: pointer;
+}
+
+.cs-cta-text {
+  font-size: 0.7rem;
+}
+
+.field {
+  margin: 0 0 1.1rem;
+}
+label {
+  display: block;
+  margin: 0 0 0.4rem;
+  font-weight: 600;
+  color: var(--headerColor);
+}
+
+body.dark-mode label {
+  color: var(--bodyTextColorWhite);
+}
+
+input,
+select {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.3rem 0.85rem;
+  font: inherit;
+  line-height: 1.2;
+  color: inherit;
+  background-color: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 0.25rem;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+input::placeholder {
+  color: currentColor;
+  opacity: 0.45;
+}
+input:hover,
+select:hover {
+  border-color: rgba(0, 0, 0, 0.5);
+}
+input:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent);
+}
+input:user-invalid,
+select:user-invalid,
+input[aria-invalid="true"],
+select[aria-invalid="true"] {
+  border-color: #b00020;
+}
+input:user-invalid:focus,
+select:user-invalid:focus,
+input[aria-invalid="true"]:focus,
+select[aria-invalid="true"]:focus {
+  box-shadow: 0 0 0 3px rgba(176, 0, 32, 0.2);
+}
+
+.err {
+  display: block;
+  margin-top: 0.35rem;
+  color: #cc0a00;
+  font-size: 0.85rem;
+}
+body.dark-mode .err {
+  color: #ff531e;
+}
+.err:empty {
+  display: none;
+}
+
+.cf-turnstile {
+  width: 100%;
+  margin: 1.25rem 0;
+}
+
+/* ---------- Status message ---------- */
+.status {
+  --statusColor: var(--primary);
+  margin: 1.25rem 0 0;
+  scroll-margin-block: 7rem;
+}
+.status:not(:empty) {
+  padding: 0.8rem 1rem;
+  border-left: 4px solid var(--statusColor);
+  border-radius: var(--cb-radius);
+  background: color-mix(in srgb, var(--statusColor) 12%, transparent);
+}
+.status:focus {
+  outline: none;
+}
+.status.is-success {
+  --statusColor: #1a7f37;
+}
+.status.is-error {
+  --statusColor: #b00020;
+}
+.status.flash {
+  animation: statusFlash 1s ease-out;
+}
+@keyframes statusFlash {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--statusColor) 55%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 14px transparent;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .status.flash {
+    animation: none;
+  }
+}
+
+._cont_box_ref {
+  position: absolute;
+  left: -9999px;
+  pointer-events: none;
+}

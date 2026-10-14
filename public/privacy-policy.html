@@ -184,7 +184,7 @@
                 <a href="/docs" class="cs-li-link"> Docs </a>
               </li>
               <li class="cs-li">
-                <a href="mailto:halt-pledge-paper@duck.com" class="cs-li-link">
+                <a href="mailto:contact@sri-guide.com" class="cs-li-link">
                   Contact
                 </a>
               </li>
@@ -224,7 +224,7 @@
       >
         <h1 class="cs-title">Privacy Policy</h1>
 
-        <p class="cs-text">Last updated: <em>2026.07.01</em></p>
+        <p class="cs-text">Last updated: <em>2026.10.13</em></p>
         <hr />
         <h2 class="cs-topper" style="margin-top: 2.5rem">
           Ultra-short version
@@ -247,25 +247,21 @@
           </li>
           <li>
             <strong>Actually using the API:</strong>
-            We don't log your IP, we don't log which endpoints you call, and we
-            definitely don't care how long you stared at the JSON. Successful
-            requests with valid API keys = hourly count of requests per key
-            saved in Redis, Failed/abuse-level requests = temporary IP block
-            enforced by Vercel Firewall and DDoS protection.
+            We only log what's necessary to prevent abuse and ensure fair usage.
+            Successful requests increment a counter in Redis along with the
+            request path. Failed or abusive requests will result in a temporary
+            IP block enforced by Vercel Firewall and DDoS protection.
           </li>
           <li>
             We don't use Google Analytics, Vercel Analytics, Plausible, or any
             of that nonsense. We turned all of it off on purpose.
           </li>
           <li>
-            <strong
-              >Your email and associated name (only when you request an API
-              key):</strong
-            >
-            That's the only personal info we ever store. It goes straight into a
-            private Redis instance which is protected. We don't share it, sell
-            it, rent it, or accidentally CC your mom or boss on the newsletter
-            (well, there is no newsletter).
+            When you request an API key, we store
+            <strong>your email and name</strong> in a Redis instance hosted in
+            the EU. That's the only personal info we ever store. We don't share
+            it, sell it, rent it, or accidentally CC your mom or boss on the
+            newsletter (well, there is no newsletter).
           </li>
           <li>
             <strong>If you wish to use the buymeacoffee service:</strong>
@@ -301,15 +297,19 @@
         </p>
 
         <p class="text">
-          When you request an API key, we store your <b>email address</b>, the
-          <b>name</b>
-          associated with that email account, along with other system-generated
-          data (such as the API key itself), in a private Redis instance hosted
-          within the European Union (EU). Both the email address and name are
-          encrypted before storage using the Fernet encryption scheme, which
-          provides authenticated encryption based on AES-128 and HMAC-SHA256.
-          Encryption keys are securely managed and are not accessible to
-          unauthorized parties.
+          When you request an API key, we store your <b>email address</b> and
+          your <b>name</b>, along with other system-generated data (such as the
+          API key itself), in a private Redis instance hosted within the
+          European Union (EU). Both the email address and name are encrypted
+          before storage using the Fernet encryption scheme, which provides
+          authenticated encryption based on AES-128 and HMAC-SHA256. Encryption
+          keys are securely managed and are not accessible to unauthorized
+          parties. For abuse prevention, we log your hashed IP address along
+          with your API key request. Raw IP addresses are never stored or
+          shared. All request data automatically expires after 48 hours OR upon
+          API key issuance, whichever comes first. This ensures that we do not
+          retain personal information longer than necessary for the purpose of
+          managing API access and preventing abuse.
         </p>
         <p class="text">
           We do not share, sell, or rent your personal information to third
@@ -328,12 +328,11 @@
           suspicious activity and implementing rate limits to ensure fair usage.
           As part of these measures, all authenticated requests to the API
           increment a counter in Redis associated with the API key. This counter
-          is used solely for monitoring usage and enforcing rate limits. We do
-          not log the specific endpoints accessed or the content of the
-          requests. These counters are temporarily stored and automatically
-          reset after a 30-day period. In the event of abuse or suspicious
-          activity, we may temporarily block the associated API key and notify
-          the user via the registered email address.
+          is used solely for monitoring usage and enforcing rate limits. These
+          counters are temporarily stored and automatically reset after a 30-day
+          period. In the event of abuse or suspicious activity, we may
+          temporarily block the associated API key and notify the user via the
+          registered email address.
         </p>
 
         <h2 class="cs-topper" style="margin-top: 2.5rem">Use of Cookies</h2>
@@ -347,6 +346,28 @@
         <h2 class="cs-topper" style="margin-top: 2.5rem">
           Third-Party Links and Services
         </h2>
+        <p class="text">
+          This website uses <strong>Cloudflare Turnstile</strong> for bot
+          mitigation and DDoS protection. Cloudflare may collect certain
+          information about your device and browsing behavior to provide these
+          services. For details on how Cloudflare handles your data, please
+          refer to their privacy policy:
+          <a
+            href="https://www.cloudflare.com/privacypolicy/"
+            target="_blank"
+            rel="noopener"
+            >cloudflare.com/privacypolicy</a
+          >
+        </p>
+        <p class="text">
+          We use <strong>Resend</strong> for email delivery. Resend may collect
+          certain information about your email interactions to provide their
+          services. For details on how Resend handles your data, please refer to
+          their privacy policy:
+          <a href="https://resend.com/privacy" target="_blank" rel="noopener"
+            >resend.com/privacy</a
+          >
+        </p>
         <p class="text">
           Our website may contain links to third-party websites or services. We
           are not responsible for the privacy practices of these third parties.
@@ -367,9 +388,7 @@
         <p class="text">
           You can ask to view, update, or delete any personal information we
           have about you at any time by contacting us at
-          <a href="mailto:halt-pledge-paper@duck.com"
-            >halt-pledge-paper[-at-]duck.com</a
-          >.
+          <a href="mailto:contact@sri-guide.com">contact@sri-guide.com</a>.
         </p>
 
         <h2 class="cs-topper" style="margin-top: 2.5rem">
@@ -383,9 +402,7 @@
 
         <p class="text">
           Questions? Reach out to us:
-          <a href="mailto:halt-pledge-paper@duck.com"
-            >halt-pledge-paper[-at-]duck.com</a
-          >
+          <a href="mailto:contact@sri-guide.com">contact@sri-guide.com</a>
         </p>
       </div>
     </div>
@@ -422,9 +439,7 @@
               <a href="/docs" class="cs-link">Docs</a>
             </li>
             <li class="cs-li">
-              <a href="mailto:halt-pledge-paper@duck.com" class="cs-link"
-                >Contact</a
-              >
+              <a href="mailto:contact@sri-guide.com" class="cs-link">Contact</a>
             </li>
           </ul>
         </div>
@@ -493,7 +508,7 @@
             </li>
             <li class="cs-social-li">
               <a
-                href="mailto:halt-pledge-paper@duck.com"
+                href="mailto:contact@sri-guide.com"
                 class="cs-social-link"
                 aria-label="email"
                 target="_blank"
