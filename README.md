@@ -48,6 +48,10 @@ Just a couple more reasons:
 
 ## API
 
+<img width="1259" height="171" alt="SLH - Github Update Banner" src="https://github.com/user-attachments/assets/7de22014-a77c-4cf8-9228-c7ec1fa09a8b" />
+
+### Live Service Stats
+
 | Service         	| Status                                                                                  	|
 |-----------------	|-----------------------------------------------------------------------------------------	|
 | API             	| ![Cron job status](https://api.cron-job.org/jobs/8642056/c28a42b23c352e04/status-0.svg) 	|
